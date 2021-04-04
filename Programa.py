@@ -4,7 +4,7 @@ while True:
     opcao = int(input('[0] Cadastrar novas roupas\n'
                       '[1] Retirar peças de roupas\n'
                       '[2] Parar o programa\n'
-                      '[3] Ver roupas\n'
+                      '[3] Ver a lista de roupas\n'
                       'Digite uma opção: '))
 
     if opcao == 0:
@@ -21,13 +21,16 @@ while True:
         print(f'Roupa {nome} cadastrada com sucesso!')
 
     elif opcao == 1:
+        # Retirar peças de roupas
         barra_roupa = int(input('Qual o código de barras da roupa você gostaria de retirar? '))
         quant = int(input('Qual a quantidade? '))
 
     elif opcao == 2:
+        # Parar o programa
         break
 
     elif opcao == 3:
+        # Ver lista de roupas
         from Funções import verlista
         verlista()
 
