@@ -36,15 +36,16 @@ class Roupa:
         con.close()
 
 
-def remocao(barra, quantidade):
+def remocao(barra, tamanho, quantidade):
     """ Função para remover peças de roupa
     :param barra: Código de barras
     :param quantidade: quantidade a ser retirada
+    :param tamanho: tamanho da roupa a ser retirada
     """
-    verlista()
     con = sqlite3.connect("dados.db")
     c = con.cursor()
-    c.execute("UPDATE produtos SET quantidade = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+
+    c.execute(f"UPDATE produtos SET {tamanho} = ? WHERE codigo_de_barra = ?", (quantidade, barra))
 
 
 def verlista():
@@ -53,14 +54,17 @@ def verlista():
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    print('-'*71)
-    print(f'|{"Código de barra":<16}|{"Nome da roupa":<20}|{"Valor":<15}|{"Quantidade":<15}|')
-    print('-'*71)
+    print('-'*113)
+    print(f'|{"Código de barra":^16}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^17}|'
+          f'{"Tamanhos P":^11}|{"Tamanhos M":^11}|{"Tamanhos G":^11}|{"Tamanhos GG":^11}|')
+    # 7
+    print('-'*113)
 
     for lista in c.execute('SELECT * FROM produtos'):
-        print(f'|{lista[0]:<16}|{lista[1]:<20}|{lista[2]:<15}|{lista[3]:<15}|')
+        print(f'|{lista[0]:^16}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^17}|{lista[4]:^11}|'
+              f'{lista[5]:^11}|{lista[6]:^11}|{lista[7]:^11}|')
 
-    print('-'*71)
+    print('-'*113)
 
     con.close()
 
@@ -81,3 +85,41 @@ def temporario():
 
     con.commit()
     con.close()
+
+
+def validacao_cdb(codigo):
+    """ Função para Validação de código de barras e de quantidade
+    :param codigo: Código de barras
+    :return: Se achar o código de barras o valor retornado vai ser True
+    Se não, o valor retornado vai ser False"""
+
+    con = sqlite3.connect("dados.db")
+    c = con.cursor()
+
+    for linha in c.execute("SELECT * FROM produtos"):
+        if codigo == linha[0]:
+            con.close()
+            return True
+    con.close()
+    return False
+
+
+def validacao_tr(cb, tam, qp):
+    """ Validação da função: tirar roupa. Tem o próposito de validação da quantiade de roupas do tamanho x
+    :param tam: Tamanho da roupa
+    :param qp: Quantidade de roupas a ser retirado
+    :param cb: Código de barras
+    :return: Return True se possuir, False se não possuir.
+    """
+
+    con = sqlite3.connect("dados.db")
+    c = con.cursor()
+
+    for linha in c.execute("SELECT * FROM produtos"):
+        if cb == linha[0]:
+            if qp <= linha[tam]:
+                c.close()
+                return True
+    c.close()
+    return False
+
