@@ -4,7 +4,7 @@ import sqlite3
 class Roupa:
 
     def __init__(self, nome, preco, codigo_de_barra, q_t, q_p, q_m, q_g, q_gg):
-        """
+        """ Essa classe foi criada no intuito de cadastrar novas roupas e também pq eu tava aprendendo classes
         :param nome: Nome da roupa
         :param preco: Preço da roupa
         :param codigo_de_barra: Código de barras
@@ -36,16 +36,27 @@ class Roupa:
         con.close()
 
 
-def remocao(barra, tamanho, quantidade):
+def remocaoeadicao(barra, tamanho, quantidade):
     """ Função para remover peças de roupa
     :param barra: Código de barras
-    :param quantidade: quantidade a ser retirada
-    :param tamanho: tamanho da roupa a ser retirada
+    :param quantidade: quantidade a ser retirada/adicionada
+    :param tamanho: tamanho da roupa a ser retirada/adicionada
     """
+
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    c.execute(f"UPDATE produtos SET {tamanho} = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+    if tamanho == 4:
+        c.execute(f"UPDATE produtos SET quantidade_p = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+    elif tamanho == 5:
+        c.execute(f"UPDATE produtos SET quantidade_m = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+    elif tamanho == 6:
+        c.execute(f"UPDATE produtos SET quantidade_g = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+    else:
+        c.execute(f"UPDATE produtos SET quantidade_gg = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+
+    con.commit()
+    con.close()
 
 
 def verlista():
@@ -69,24 +80,6 @@ def verlista():
     con.close()
 
 
-def temporario():
-    """Função temporária"""
-    con = sqlite3.connect("dados.db")
-    c = con.cursor()
-
-    c.execute("""CREATE TABLE produtos(codigo_de_barra INTEGER NOT NULL PRIMARY KEY,
-                                       nome TEXT NOT NULL,
-                                       valor REAL NOT NULL,
-                                       quantidade_total INTEGER NOT NULL,
-                                       quantidade_p INTEGER NOT NULL,
-                                       quantidade_m INTEGER NOT NULL,
-                                       quantidade_g INTEGER NOT NULL,
-                                       quantidade_gg INTEGER NOT NULL)""")
-
-    con.commit()
-    con.close()
-
-
 def validacao_cdb(codigo):
     """ Função para Validação de código de barras e de quantidade
     :param codigo: Código de barras
@@ -104,11 +97,12 @@ def validacao_cdb(codigo):
     return False
 
 
-def validacao_tr(cb, tam, qp):
+def validacao_tr(cb, tam, qp=1, op=1):
     """ Validação da função: tirar roupa. Tem o próposito de validação da quantiade de roupas do tamanho x
     :param tam: Tamanho da roupa
-    :param qp: Quantidade de roupas a ser retirado
+    :param qp: Quantidade de roupas a ser retirado. Como foi adicionado a "op" coloquei o qp também como =1
     :param cb: Código de barras
+    :param op: Apenas uma forma que achei para incluir a função na funcionalidade: adicionar quantidade de roupa
     :return: Return True se possuir, False se não possuir.
     """
 
@@ -117,9 +111,11 @@ def validacao_tr(cb, tam, qp):
 
     for linha in c.execute("SELECT * FROM produtos"):
         if cb == linha[0]:
+            if op == 2:
+                con.close()
+                return linha[tam]
             if qp <= linha[tam]:
-                c.close()
-                return True
-    c.close()
+                con.close()
+                return True and linha[tam]
+    con.close()
     return False
-
