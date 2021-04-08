@@ -1,4 +1,5 @@
 import Funções
+from datetime import date
 
 while True:
 
@@ -7,6 +8,7 @@ while True:
                       '[2] Parar o programa\n'
                       '[3] Ver a lista de roupas\n'
                       '[4] Adicionar peças de roupas\n'
+                      '[5] Ver o histórico de remoção de roupas\n'
                       'Digite uma opção: '))
 
     if opcao == 0:
@@ -62,7 +64,10 @@ while True:
                 print('\033[0;31m -> Os valores inseridos estão incorretos. Por favor verifique os dados inseridos <-'
                       '\033[m')
                 Funções.verlista()
-        Funções.remocaoeadicao(codigo_de_barra, tam, val-quant)
+
+        q_t = Funções.pegarvalor(codigo_de_barra, q_t=1)
+
+        Funções.remocaoeadicao(codigo_de_barra, tam, val-quant, q_t[0]-quant)
         print('Peça de roupa retirado com sucesso')
 
     elif opcao == 2:
@@ -103,8 +108,23 @@ while True:
         # de dados
         # qt -> quantidade
         qt2 = Funções.validacao_tr(codigo_de_barra, tam, op=2)
-        Funções.remocaoeadicao(codigo_de_barra, tam, qt1+qt2)
+
+        # x é a quantidade total
+        q_t = Funções.pegarvalor(codigo_de_barra, q_t=1)
+
+        Funções.remocaoeadicao(codigo_de_barra, tam, qt1+qt2, q_t[0]+qt1)
         print('Peças de roupas adicionado com sucesso')
+
+    elif opcao == 5:
+        # Ver o histórico de roupas
+
+        # Data atual DD-MM-YY
+        data = date.today().strftime('%d/%m/%y')
+        tam_p = Funções.pegarvalor(207701, q_gg=1)
+        print(tam_p[0])
+
+    elif opcao == 6:
+        Funções.temporario()
 
     else:
         # Usuário não digitou um valor válido

@@ -36,9 +36,10 @@ class Roupa:
         con.close()
 
 
-def remocaoeadicao(barra, tamanho, quantidade):
+def remocaoeadicao(barra, tamanho, quantidade, qt):
     """ Função para remover peças de roupa
     :param barra: Código de barras
+    :param qt: Quantidade total
     :param quantidade: quantidade a ser retirada/adicionada
     :param tamanho: tamanho da roupa a ser retirada/adicionada
     """
@@ -47,13 +48,17 @@ def remocaoeadicao(barra, tamanho, quantidade):
     c = con.cursor()
 
     if tamanho == 4:
-        c.execute(f"UPDATE produtos SET quantidade_p = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+        c.execute(f"UPDATE produtos SET quantidade_p = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
+                  (quantidade, qt, barra))
     elif tamanho == 5:
-        c.execute(f"UPDATE produtos SET quantidade_m = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+        c.execute(f"UPDATE produtos SET quantidade_m = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
+                  (quantidade, qt, barra))
     elif tamanho == 6:
-        c.execute(f"UPDATE produtos SET quantidade_g = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+        c.execute(f"UPDATE produtos SET quantidade_g = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
+                  (quantidade, qt, barra))
     else:
-        c.execute(f"UPDATE produtos SET quantidade_gg = ? WHERE codigo_de_barra = ?", (quantidade, barra))
+        c.execute(f"UPDATE produtos SET quantidade_gg = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
+                  (quantidade, qt, barra))
 
     con.commit()
     con.close()
@@ -78,6 +83,21 @@ def verlista():
     print('-'*113)
 
     con.close()
+
+
+def verhistorico():
+    """ Função para ver o histórico
+    """
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    print('Data <> Código de barra <> Nome da roupa <> Valor total <> Tamanhos')
+
+    print('-'*40)
+    for linha in c.execute('SELECT * FROM historico'):
+        print(f'{linha[0]} <> {linha[1]} <> {linha[2]} <> {linha[3]} <> {linha[4]}')
+
+    print('-'*40)
 
 
 def validacao_cdb(codigo):
@@ -119,3 +139,49 @@ def validacao_tr(cb, tam, qp=1, op=1):
                 return True and linha[tam]
     con.close()
     return False
+
+
+def pegarvalor(cd, nome=0, valor=0, q_t=0, q_p=0, q_m=0, q_g=0, q_gg=0):
+    """ Função para pegar um valor x. Para pegar um valor desejado é só especificar
+    :param cd: Código de barras
+    :param nome: Nome da roupa
+    :param valor: Valor da roupa
+    :param q_t: Quantidade total
+    :param q_p: Quantidade de Tamanhos P
+    :param q_m: Quantidade de Tamanhos M
+    :param q_g: Quantidade de Tamanhos G
+    :param q_gg: Quantidade de Tamanhos GG
+    :return: Os valores desejados em uma lista. Para pegar o valor no return é só dá um: lista[0]
+    """
+
+    con = sqlite3.connect("dados.db")
+    c = con.cursor()
+
+    dados = []
+    for linha in c.execute("SELECT * FROM produtos"):
+        if cd == linha[0]:
+            if nome == 1:
+                dados.append(linha[1])
+            if valor == 1:
+                dados.append(linha[2])
+            if q_t == 1:
+                dados.append(linha[3])
+            if q_p == 1:
+                dados.append(linha[4])
+            if q_m == 1:
+                dados.append(linha[5])
+            if q_g == 1:
+                dados.append(linha[6])
+            if q_gg == 1:
+                dados.append(linha[7])
+    return dados
+
+
+def temporario():
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    c.execute("""UPDATE produtos SET quantidade_total = ? WHERE codigo_de_barra = ?""", (15, 207701))
+
+    con.commit()
+    con.close()
