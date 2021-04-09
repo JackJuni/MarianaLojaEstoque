@@ -179,9 +179,24 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_p=0, q_m=0, q_g=0, q_gg=0):
 
 def temporario():
     con = sqlite3.connect('dados.db')
+
+    con.commit()
+    con.close()
+
+
+def adicionarhistorico(data, cb, nome, tam, sit, valor=0):
+    """ Função para adicionar ao histórico as mudanças feita no estoque
+    :param data: A data
+    :param cb: Código de barras
+    :param nome: Nome da peça de roupa
+    :param tam: Os tamanhos retirados/adicionados
+    :param sit: A situação se foi: Novo cadastro, Adicionada e Comprada
+    :param valor: Valor da roupa Retirado
+    """
+    con = sqlite3.connect('dados.db')
     c = con.cursor()
 
-    c.execute("""UPDATE produtos SET quantidade_total = ? WHERE codigo_de_barra = ?""", (15, 207701))
+    c.execute("INSERT OR IGNORE INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cb, nome, valor, tam, sit))
 
     con.commit()
     con.close()

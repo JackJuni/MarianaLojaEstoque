@@ -1,6 +1,9 @@
 import Funções
 from datetime import date
 
+# Data atual DD-MM-YY
+data = date.today().strftime('%d/%m/%y')
+
 while True:
 
     opcao = int(input('[0] Cadastrar novas roupas\n'
@@ -21,6 +24,9 @@ while True:
         q_m = int(input('Digite a quantidade para tamanhos M: (0 Se não nenhum) '))
         q_g = int(input('Digite a quantidade para tamanhos G: (0 Se não nenhum) '))
         q_gg = int(input('Digite a quantidade para tamanhos GG: (0 Se não nenhum) '))
+
+        Funções.adicionarhistorico(data, codigo, nome, f'{q_p} Tamanhos P, {q_m} Tamanhos M, {q_g} Tamanhos G,'
+                                                       f'{q_gg} Tamanhos GG', 'Novo Cadastro', preco)
 
         roupa = Funções.Roupa(nome, preco, codigo, (q_p + q_m + q_g + q_gg), q_p, q_m, q_g, q_gg)
         roupa.cadastrar()
@@ -45,18 +51,27 @@ while True:
         # As variaveis de tam2 recebem a posição da lista
         # Isso faz algum sentido e eu não faço a menor ideia do pq faz sentido
         while True:
-            tam = str(input('Qual o tamanho que você está retirando? (P, M, G, GG) ')).strip().upper()[0]
+            tam = str(input('Qual o tamanho que você está retirando? (P, M, G, GG) ')).strip().upper()
+
+            quant = int(input('Qual a quantidade de peças que deseja retirar? '))
+
+            x = Funções.pegarvalor(codigo_de_barra, nome=1, valor=1)
+
+            Funções.adicionarhistorico(data, codigo_de_barra, x[0], f'{quant} Tamanhos {tam}', 'Comprado',
+                                       valor=x[1]*quant)
+
             if tam == 'P':
                 tam = 4
             elif tam == 'M':
                 tam = 5
-            elif tam == 'G':
-                tam = 6
-            elif tam == 'GG':
-                tam = 7
+            elif 'G' in tam:
+                if tam.count('G') == 1:
+                    tam = 6
+                else:
+                    tam = 7
 
-            quant = int(input('Qual a quantidade de peças que deseja retirar? '))
             val = Funções.validacao_tr(codigo_de_barra, tam, quant)
+
             # Se os dados inseridos puderem ser executados ele vai dar break
             if val:
                 break
@@ -94,16 +109,17 @@ while True:
                 print('\033[0;31m -> Este código de barras não existe. Por favor digite um código de barras'
                       ' válido <-\033[m')
 
-        tam = str(input('Qual o tamanho que você está adicionando? (P, M, G, GG) ')).strip().upper()[0]
+        tam = str(input('Qual o tamanho que você está adicionando? (P, M, G, GG) ')).strip().upper()
         qt1 = int(input('Deseja adicionar quantas unidades? '))
         if tam == 'P':
             tam = 4
         elif tam == 'M':
             tam = 5
-        elif tam == 'G':
-            tam = 6
-        elif tam == 'GG':
-            tam = 7
+        elif 'G' in tam:
+            if tam.count('G') == 1:
+                tam = 6
+            else:
+                tam = 7
         #  A validação vai servir para puxar quantas roupas do tamanho x tem, para assim eu poder atualizar no banco -
         # de dados
         # qt -> quantidade
@@ -117,11 +133,7 @@ while True:
 
     elif opcao == 5:
         # Ver o histórico de roupas
-
-        # Data atual DD-MM-YY
-        data = date.today().strftime('%d/%m/%y')
-        tam_p = Funções.pegarvalor(207701, q_gg=1)
-        print(tam_p[0])
+        Funções.verhistorico()
 
     elif opcao == 6:
         Funções.temporario()
