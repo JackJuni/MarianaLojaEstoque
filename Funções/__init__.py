@@ -1,64 +1,55 @@
 import sqlite3
 
 
-class Roupa:
+def cadastrar(cdb, nome, valor, q_t, q_u, q_p, q_m, q_g, q_gg):
+    """ Função para cadastrar roupas no banco de dados
+    :param cdb: Código de barras
+    :param nome: Nome da peça de roupa
+    :param valor: Valor da roupa em R$
+    :param q_t: Quantidade total de tamanhos
+    :param q_u: Tamanhos únicos
+    :param q_p: Tamanhos P
+    :param q_m: Tamanhos M
+    :param q_g: Tamanhos G
+    :param q_gg: Tamanhos GG
+    :return:
+    """
+    con = sqlite3.connect("dados.db")
+    c = con.cursor()
 
-    def __init__(self, nome, preco, codigo_de_barra, q_t, q_p, q_m, q_g, q_gg):
-        """ Essa classe foi criada no intuito de cadastrar novas roupas e também pq eu tava aprendendo classes
-        :param nome: Nome da roupa
-        :param preco: Preço da roupa
-        :param codigo_de_barra: Código de barras
-        :param q_t: Quantidade total
-        :param q_p: Quantitade de Tamanhos P
-        :param q_m: Quantitade de Tamanhos M
-        :param q_g: Quantitade de Tamanhos G
-        :param q_gg: Quantitade de Tamanhos GG
-        """
-        self.nome = nome
-        self.preco = preco
-        self.barra = codigo_de_barra
-        self.q_t = q_t
-        self.q_p = q_p
-        self.q_m = q_m
-        self.q_g = q_g
-        self.q_gg = q_gg
+    c.execute("INSERT INTO produtos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+              (cdb, nome, valor, q_t, q_u, q_p, q_m, q_g, q_gg, 0, 0, 0, 0, 0, 0))
 
-    def cadastrar(self):
-        """ Cadastra novas peças de roupas no banco de dados
-        """
-        con = sqlite3.connect("dados.db")
-        c = con.cursor()
-
-        c.execute("INSERT INTO produtos VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                  (self.barra, self.nome, self.preco, self.q_t, self.q_p, self.q_m, self.q_g, self.q_gg))
-
-        con.commit()
-        con.close()
+    con.commit()
+    con.close()
 
 
-def remocaoeadicao(barra, tamanho, quantidade, qt):
+def remocaoeadicao(cdb, tam, qt, q_t):
     """ Função para remover peças de roupa
-    :param barra: Código de barras
-    :param qt: Quantidade total
-    :param quantidade: quantidade a ser retirada/adicionada
-    :param tamanho: tamanho da roupa a ser retirada/adicionada
+    :param cdb: Código de barras
+    :param q_t: Quantidade total
+    :param qt: quantidade a ser retirada/adicionada
+    :param tam: tamanho da roupa a ser retirada/adicionada
     """
 
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    if tamanho == 4:
-        c.execute(f"UPDATE produtos SET quantidade_p = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
-                  (quantidade, qt, barra))
-    elif tamanho == 5:
-        c.execute(f"UPDATE produtos SET quantidade_m = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
-                  (quantidade, qt, barra))
-    elif tamanho == 6:
-        c.execute(f"UPDATE produtos SET quantidade_g = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
-                  (quantidade, qt, barra))
+    if tam == 4:
+        c.execute(f"UPDATE produtos SET q_u = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 5:
+        c.execute(f"UPDATE produtos SET q_p = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 6:
+        c.execute(f"UPDATE produtos SET q_m = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 7:
+        c.execute(f"UPDATE produtoqts SET q_g = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
     else:
-        c.execute(f"UPDATE produtos SET quantidade_gg = ?, quantidade_total = ? WHERE codigo_de_barra = ?",
-                  (quantidade, qt, barra))
+        c.execute(f"UPDATE produtos SET q_gg = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
 
     con.commit()
     con.close()
@@ -70,17 +61,16 @@ def verlista():
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    print('-'*113)
-    print(f'|{"Código de barra":^16}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^17}|'
+    print('-'*125)
+    print(f'|{"Código de barra":^16}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^17}|{"Tamanhos U":^11}|'
           f'{"Tamanhos P":^11}|{"Tamanhos M":^11}|{"Tamanhos G":^11}|{"Tamanhos GG":^11}|')
-    # 7
-    print('-'*113)
+    print('-'*125)
 
     for lista in c.execute('SELECT * FROM produtos'):
-        print(f'|{lista[0]:^16}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^17}|{lista[4]:^11}|'
-              f'{lista[5]:^11}|{lista[6]:^11}|{lista[7]:^11}|')
+        print(f'|{lista[0]:^16}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^17}|{lista[4]:^11}|{lista[5]:^11}|'
+              f'{lista[6]:^11}|{lista[7]:^11}|{lista[8]:^11}|')
 
-    print('-'*113)
+    print('-'*125)
 
     con.close()
 
@@ -90,19 +80,21 @@ def verhistorico():
     """
     con = sqlite3.connect('dados.db')
     c = con.cursor()
+    print('-'*154)
 
-    print('Data <> Código de barra <> Nome da roupa <> Valor total <> Tamanhos')
+    print(f'|{"Data":^17}|{"Código de barra":^17}|{"Nome da roupa":^20}|{"Valor total":^13}'
+          f'|{"Tamanhos":^70}|{"Situação":^13}')
 
-    print('-'*40)
+    print('-'*154)
     for linha in c.execute('SELECT * FROM historico'):
-        print(f'{linha[0]} <> {linha[1]} <> {linha[2]} <> {linha[3]} <> {linha[4]}')
+        print(f'|{linha[0]:^17}|{linha[1]:^17}|{linha[2]:^20}|{linha[3]:^13}|{linha[4]:^70}|{linha[5]:^13}')
 
-    print('-'*40)
+    print('-'*154)
 
 
-def validacao_cdb(codigo):
+def validacao_cdb(cdb):
     """ Função para Validação de código de barras e de quantidade
-    :param codigo: Código de barras
+    :param cdb: Código de barras
     :return: Se achar o código de barras o valor retornado vai ser True
     Se não, o valor retornado vai ser False"""
 
@@ -110,18 +102,18 @@ def validacao_cdb(codigo):
     c = con.cursor()
 
     for linha in c.execute("SELECT * FROM produtos"):
-        if codigo == linha[0]:
+        if cdb == linha[0]:
             con.close()
             return True
     con.close()
     return False
 
 
-def validacao_tr(cb, tam, qp=1, op=1):
+def validacao_tr(cdb, tam, qp=1, op=1):
     """ Validação da função: tirar roupa. Tem o próposito de validação da quantiade de roupas do tamanho x
     :param tam: Tamanho da roupa
     :param qp: Quantidade de roupas a ser retirado. Como foi adicionado a "op" coloquei o qp também como =1
-    :param cb: Código de barras
+    :param cdb: Código de barras
     :param op: Apenas uma forma que achei para incluir a função na funcionalidade: adicionar quantidade de roupa
     :return: Return True se possuir, False se não possuir.
     """
@@ -130,7 +122,7 @@ def validacao_tr(cb, tam, qp=1, op=1):
     c = con.cursor()
 
     for linha in c.execute("SELECT * FROM produtos"):
-        if cb == linha[0]:
+        if cdb == linha[0]:
             if op == 2:
                 con.close()
                 return linha[tam]
@@ -141,12 +133,13 @@ def validacao_tr(cb, tam, qp=1, op=1):
     return False
 
 
-def pegarvalor(cd, nome=0, valor=0, q_t=0, q_p=0, q_m=0, q_g=0, q_gg=0):
+def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0):
     """ Função para pegar um valor x. Para pegar um valor desejado é só especificar
     :param cd: Código de barras
     :param nome: Nome da roupa
     :param valor: Valor da roupa
     :param q_t: Quantidade total
+    :param q_u: Quantidade de Tamanhos único
     :param q_p: Quantidade de Tamanhos P
     :param q_m: Quantidade de Tamanhos M
     :param q_g: Quantidade de Tamanhos G
@@ -166,37 +159,47 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_p=0, q_m=0, q_g=0, q_gg=0):
                 dados.append(linha[2])
             if q_t == 1:
                 dados.append(linha[3])
-            if q_p == 1:
+            if q_u == 1:
                 dados.append(linha[4])
-            if q_m == 1:
+            if q_p == 1:
                 dados.append(linha[5])
-            if q_g == 1:
+            if q_m == 1:
                 dados.append(linha[6])
-            if q_gg == 1:
+            if q_g == 1:
                 dados.append(linha[7])
+            if q_gg == 1:
+                dados.append(linha[8])
     return dados
 
 
 def temporario():
     con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    c.execute('')
 
     con.commit()
-    con.close()
+    c.close()
 
 
-def adicionarhistorico(data, cb, nome, tam, sit, valor=0):
+def adicionarhistorico(cdb, nome, tam, sit, valor=0):
     """ Função para adicionar ao histórico as mudanças feita no estoque
-    :param data: A data
-    :param cb: Código de barras
+    :param cdb: Código de barras
     :param nome: Nome da peça de roupa
     :param tam: Os tamanhos retirados/adicionados
     :param sit: A situação se foi: Novo cadastro, Adicionada e Comprada
     :param valor: Valor da roupa Retirado
     """
+    from datetime import date
+    import time
+
+    # Data atual DD-MM-YY e hora HH:MM:SS para adicionar na tabela e não dar erro
+    data = date.today().strftime('%d/%m/%y') + time.strftime(' %H:%M:%S')
+
     con = sqlite3.connect('dados.db')
     c = con.cursor()
 
-    c.execute("INSERT OR IGNORE INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cb, nome, valor, tam, sit))
+    c.execute("INSERT OR IGNORE INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cdb, nome, valor, tam, sit))
 
     con.commit()
     con.close()
