@@ -1,24 +1,30 @@
 import sqlite3
 
 
-def cadastrar(cdb, nome, valor, q_t, q_u, q_p, q_m, q_g, q_gg):
+def cadastrar(cdb, nome, valor, q_t, q_1, q_2, q_3, q_4, q_5, op, q_6=0):
     """ Função para cadastrar roupas no banco de dados
     :param cdb: Código de barras
     :param nome: Nome da peça de roupa
     :param valor: Valor da roupa em R$
     :param q_t: Quantidade total de tamanhos
-    :param q_u: Tamanhos únicos
-    :param q_p: Tamanhos P
-    :param q_m: Tamanhos M
-    :param q_g: Tamanhos G
-    :param q_gg: Tamanhos GG
-    :return:
+    :param q_1: Tamanhos únicos // Tamanhos 36
+    :param q_2: Tamanhos P // Tamanhos 38
+    :param q_3: Tamanhos M // Tamanhos 40
+    :param q_4: Tamanhos G // Tamanhos 42
+    :param q_5: Tamanhos GG // Tamanhos 44
+    :param q_6: Tamanhos 46
+    :param op: Opção se ele é bermuda/shorts ou peça de roupa normal. 1 Bermudas/Shorts, 0 Peças normais
     """
+
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    c.execute("INSERT INTO produtos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-              (cdb, nome, valor, q_t, q_u, q_p, q_m, q_g, q_gg, 0, 0, 0, 0, 0, 0))
+    if op == 0:
+        c.execute("INSERT INTO produtos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                  (cdb, nome, valor, q_t, q_1, q_2, q_3, q_4, q_5, 0, 0, 0, 0, 0, 0, op))
+    else:
+        c.execute("INSERT INTO produtos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                  (cdb, nome, valor, q_t, 0, 0, 0, 0, 0, q_1, q_2, q_3, q_4, q_5, q_6, op))
 
     con.commit()
     con.close()
@@ -36,19 +42,37 @@ def remocaoeadicao(cdb, tam, qt, q_t):
     c = con.cursor()
 
     if tam == 4:
-        c.execute(f"UPDATE produtos SET q_u = ?, q_t = ? WHERE cdb = ?",
+        c.execute("UPDATE produtos SET q_u = ?, q_t = ? WHERE cdb = ?",
                   (qt, q_t, cdb))
     elif tam == 5:
-        c.execute(f"UPDATE produtos SET q_p = ?, q_t = ? WHERE cdb = ?",
+        c.execute("UPDATE produtos SET q_p = ?, q_t = ? WHERE cdb = ?",
                   (qt, q_t, cdb))
     elif tam == 6:
-        c.execute(f"UPDATE produtos SET q_m = ?, q_t = ? WHERE cdb = ?",
+        c.execute("UPDATE produtos SET q_m = ?, q_t = ? WHERE cdb = ?",
                   (qt, q_t, cdb))
     elif tam == 7:
-        c.execute(f"UPDATE produtoqts SET q_g = ?, q_t = ? WHERE cdb = ?",
+        c.execute("UPDATE produtos SET q_g = ?, q_t = ? WHERE cdb = ?",
                   (qt, q_t, cdb))
-    else:
-        c.execute(f"UPDATE produtos SET q_gg = ?, q_t = ? WHERE cdb = ?",
+    elif tam == 8:
+        c.execute("UPDATE produtos SET q_gg = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 9:
+        c.execute("UPDATE produtos SET q_36 = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 10:
+        c.execute("UPDATE produtos SET q_38 = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 11:
+        c.execute("UPDATE produtos SET q_40 = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 12:
+        c.execute("UPDATE produtos SET q_42 = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 13:
+        c.execute("UPDATE produtos SET q_44 = ?, q_t = ? WHERE cdb = ?",
+                  (qt, q_t, cdb))
+    elif tam == 14:
+        c.execute("UPDATE produtos SET q_46 = ?, q_t = ? WHERE cdb = ?",
                   (qt, q_t, cdb))
 
     con.commit()
@@ -61,16 +85,18 @@ def verlista():
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    print('-'*125)
-    print(f'|{"Código de barra":^16}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^17}|{"Tamanhos U":^11}|'
-          f'{"Tamanhos P":^11}|{"Tamanhos M":^11}|{"Tamanhos G":^11}|{"Tamanhos GG":^11}|')
-    print('-'*125)
+    print('-'*144)
+    print(f'|{"Código de barra":^17}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^18}|{"T U":^5}|'
+          f'{"T P":^5}|{"T M":^5}|{"T G":^5}|{"T GG":^6}|{"Op":^3}|{"T 36":^6}|{"T 38":^6}|{"T 40":^6}|{"T 42":^6}|'
+          f'{"T 44":^6}|{"T 46":^6}|')
+    print('-'*144)
 
     for lista in c.execute('SELECT * FROM produtos'):
-        print(f'|{lista[0]:^16}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^17}|{lista[4]:^11}|{lista[5]:^11}|'
-              f'{lista[6]:^11}|{lista[7]:^11}|{lista[8]:^11}|')
+        print(f'|{lista[0]:^17}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^18}|{lista[4]:^5}|{lista[5]:^5}|'
+              f'{lista[6]:^5}|{lista[7]:^5}|{lista[8]:^6}|{lista[15]:^3}|{lista[9]:^6}|{lista[10]:^6}|{lista[11]:^6}|'
+              f'{lista[12]:^6}|{lista[13]:^6}|{lista[14]:^6}|')
 
-    print('-'*125)
+    print('-'*144)
 
     con.close()
 
@@ -82,12 +108,12 @@ def verhistorico():
     c = con.cursor()
     print('-'*154)
 
-    print(f'|{"Data":^17}|{"Código de barra":^17}|{"Nome da roupa":^20}|{"Valor total":^13}'
-          f'|{"Tamanhos":^70}|{"Situação":^13}')
+    print(f'|{"Data":^17}|{"Código de barra":^15}|{"Nome da roupa":^20}|{"Valor total":^11}'
+          f'|{"Tamanhos":^87}|{"Situação":^13}')
 
     print('-'*154)
     for linha in c.execute('SELECT * FROM historico'):
-        print(f'|{linha[0]:^17}|{linha[1]:^17}|{linha[2]:^20}|{linha[3]:^13}|{linha[4]:^70}|{linha[5]:^13}')
+        print(f'|{linha[0]:^17}|{linha[1]:^15}|{linha[2]:^20}|{linha[3]:^11}|{linha[4]:^87}|{linha[5]:^13}')
 
     print('-'*154)
 
@@ -133,7 +159,8 @@ def validacao_tr(cdb, tam, qp=1, op=1):
     return False
 
 
-def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0):
+def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0, q_36=0, q_38=0, q_40=0, q_42=0,
+               q_44=0, q_46=0, op=0):
     """ Função para pegar um valor x. Para pegar um valor desejado é só especificar
     :param cd: Código de barras
     :param nome: Nome da roupa
@@ -144,7 +171,14 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0):
     :param q_m: Quantidade de Tamanhos M
     :param q_g: Quantidade de Tamanhos G
     :param q_gg: Quantidade de Tamanhos GG
-    :return: Os valores desejados em uma lista. Para pegar o valor no return é só dá um: lista[0]
+    :param q_36: Quantidade de Tamanhos 36
+    :param q_38: Quantidade de Tamanhos 38
+    :param q_40: Quantidade de Tamanhos 40
+    :param q_42: Quantidade de Tamanhos 42
+    :param q_44: Quantidade de Tamanhos 44
+    :param q_46: Quantidade de Tamanhos 46
+    :param op: Para diferenciar de shorts/bermudas. 1 Short/bermudas, 0 Peças de roupas normais
+    :return:  Os valores desejados em uma lista. Para pegar o valor no return é só dá um: lista[0]
     """
 
     con = sqlite3.connect("dados.db")
@@ -169,14 +203,43 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0):
                 dados.append(linha[7])
             if q_gg == 1:
                 dados.append(linha[8])
+            if q_36 == 1:
+                dados.append(linha[9])
+            if q_38 == 1:
+                dados.append(linha[10])
+            if q_40 == 1:
+                dados.append(linha[11])
+            if q_42 == 1:
+                dados.append(linha[12])
+            if q_44 == 1:
+                dados.append(linha[13])
+            if q_46 == 1:
+                dados.append(linha[14])
+            if op == 1:
+                dados.append(linha[15])
     return dados
 
 
-def temporario():
+def criatabela():
     con = sqlite3.connect('dados.db')
     c = con.cursor()
 
-    c.execute('')
+    c.execute("""CREATE TABLE produtos(cdb INTEGER NOT NULL PRIMARY KEY,
+                                       nome TEXT NOT NULL,
+                                       valor REAL NOT NULL,
+                                       q_t INTEGER NOT NULL,
+                                       q_u INTEGER,
+                                       q_p INTEGER,
+                                       q_m INTEGER,
+                                       q_g INTEGER,
+                                       q_gg INTEGER,
+                                       q_36 INTEGER,
+                                       q_38 INTEGER,
+                                       q_40 INTEGER,
+                                       q_42 INTEGER,
+                                       q_44 INTEGER,
+                                       q_46 INTEGER,
+                                       op INTEGER NOT NULL)""")
 
     con.commit()
     c.close()
@@ -188,7 +251,7 @@ def adicionarhistorico(cdb, nome, tam, sit, valor=0):
     :param nome: Nome da peça de roupa
     :param tam: Os tamanhos retirados/adicionados
     :param sit: A situação se foi: Novo cadastro, Adicionada e Comprada
-    :param valor: Valor da roupa Retirado
+    :param valor: Valor total da roupa Retirado
     """
     from datetime import date
     import time
@@ -199,7 +262,40 @@ def adicionarhistorico(cdb, nome, tam, sit, valor=0):
     con = sqlite3.connect('dados.db')
     c = con.cursor()
 
-    c.execute("INSERT OR IGNORE INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cdb, nome, valor, tam, sit))
+    c.execute("INSERT INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cdb, nome, valor, tam, sit))
 
     con.commit()
     con.close()
+
+
+def transformatam(ob, op=0):
+    """ Função para transformar os tamanhos
+    :param ob: O tamanho
+    :param op: 0 Tamanhos normais, 1 Tamanhos de Shorts/Bermudas
+    :return: Retorna a peça de roupa com o número na respectiva posição na tabela do banco de dados
+    """
+    if op == 0:
+        if ob == 'U':
+            return 4
+        elif ob == 'P':
+            return 5
+        elif ob == 'M':
+            return 6
+        elif 'G' in ob:
+            if ob.count('G') == 1:
+                return 7
+            else:
+                return 8
+    else:
+        if ob == 36:
+            return 9
+        elif ob == 38:
+            return 10
+        elif ob == 40:
+            return 11
+        elif ob == 42:
+            return 12
+        elif ob == 44:
+            return 13
+        elif ob == 46:
+            return 14

@@ -19,7 +19,7 @@ while True:
         valor = float(input('Digite o preço: R$'))
 
         # As bermudas/shorts tem uma forma diferente de tamanhos
-        op = int(input('Digite 1 se a peça é uma bermuda/shorts, se não, digite 0: '))
+        op = int(input('Digite 1 se a peça é uma bermuda/shorts, se não for digite 0: '))
 
         if op == 0:
 
@@ -30,8 +30,8 @@ while True:
             q_gg = int(input('Digite a quantidade para tamanhos GG: (0 Se nenhum) '))
             Funções.adicionarhistorico(cdb, nome,
                                        f'{q_u} Tamanhos U,{q_p} Tamanhos P, {q_m} Tamanhos M, {q_g} Tamanhos G, '
-                                       f'{q_gg} Tamanhos GG', 'Novo Cadastro', valor)
-            Funções.cadastrar(cdb, nome, valor, (q_u + q_p + q_m + q_g + q_gg), q_u, q_p, q_m, q_g, q_gg)
+                                       f'{q_gg} Tamanhos GG', 'Novo Cadastro', 0)
+            Funções.cadastrar(cdb, nome, valor, (q_u + q_p + q_m + q_g + q_gg), q_u, q_p, q_m, q_g, q_gg, op)
 
         else:
             q_36 = int(input('Digite a quantidade para tamanhos 36: (0 Se nenhum) '))
@@ -40,8 +40,11 @@ while True:
             q_42 = int(input('Digite a quantidade para tamanhos 42: (0 Se nenhum) '))
             q_44 = int(input('Digite a quantidade para tamanhos 44: (0 Se nenhum) '))
             q_46 = int(input('Digite a quantidade para tamanhos 46: (0 Se nenhum) '))
-
-            print()
+            Funções.adicionarhistorico(cdb, nome, f'{q_36} Tamanhos 36,{q_38} Tamanhos 38, {q_40} Tamanhos 40,'
+                                                  f' {q_42} Tamanhos 42, {q_44} Tamanhos 44, {q_46} Tamanhos 46',
+                                       'Novo Cadastro', 0)
+            Funções.cadastrar(cdb, nome, valor, (q_36 + q_38 + q_40 + q_42 + q_44 + q_46), q_36, q_38, q_40, q_42, q_44,
+                              op, q_46)
 
         print(f'\033[0;32mRoupa {nome} cadastrada com sucesso!\033[m')
 
@@ -62,37 +65,56 @@ while True:
 
         # Troca dos tamanhos para os valores em que estão ocupados na lista para a validação
         # As variaveis de tam2 recebem a posição da lista
-        # Isso faz algum sentido e eu não faço a menor ideia do pq faz sentido
-        while True:
-            tam = str(input('Qual o tamanho que você está retirando? (U, P, M, G, GG) ')).strip().upper()
 
-            qt = int(input('Qual a quantidade de peças que deseja retirar? '))
+        # Para saber se a tal peça é Short/Bermuda
+        op = Funções.pegarvalor(cdb, op=1)
 
-            x = Funções.pegarvalor(cdb, nome=1, valor=1)
+        if op[0] == 0:
 
-            Funções.adicionarhistorico(cdb, x[0], f'{qt} Tamanhos {tam}', 'Comprado', valor=x[1]*qt)
+            while True:
+                tam = str(input('Qual o tamanho que você está retirando? (U, P, M, G, GG) ')).strip().upper()
 
-            if tam == 'U':
-                tam = 4
-            elif tam == 'P':
-                tam = 5
-            elif tam == 'M':
-                tam = 6
-            elif 'G' in tam:
-                if tam.count('G') == 1:
-                    tam = 7
+                tam2 = tam
+
+                qt = int(input('Qual a quantidade de peças que deseja retirar? '))
+
+                x = Funções.pegarvalor(cdb, nome=1, valor=1)
+
+                tam = Funções.transformatam(tam)
+
+                val = Funções.validacao_tr(cdb, tam, qt)
+
+                # Se os dados inseridos puderem ser executados ele vai dar break
+                if val:
+                    break
                 else:
-                    tam = 8
+                    print('\033[0;31m -> Os valores inseridos estão incorretos. Por favor verifique os dados'
+                          ' inseridos <-\033[m')
+                    Funções.verlista()
 
-            val = Funções.validacao_tr(cdb, tam, qt)
+        else:
+            while True:
+                tam = int(input('Qual o tamanho que você está retirando? (36, 38, 40, 42, 44, 46) '))
 
-            # Se os dados inseridos puderem ser executados ele vai dar break
-            if val:
-                break
-            else:
-                print('\033[0;31m -> Os valores inseridos estão incorretos. Por favor verifique os dados inseridos <-'
-                      '\033[m')
-                Funções.verlista()
+                tam2 = tam
+
+                qt = int(input('Qual a quantidade de peças que deseja retirar? '))
+
+                x = Funções.pegarvalor(cdb, nome=1, valor=1)
+
+                tam = Funções.transformatam(tam, op)
+
+                val = Funções.validacao_tr(cdb, tam, qt)
+
+                # Se os dados inseridos puderem ser executados ele vai dar break
+                if val:
+                    break
+                else:
+                    print('\033[0;31m -> Os valores inseridos estão incorretos. Por favor verifique os dados'
+                          ' inseridos <-\033[m')
+                    Funções.verlista()
+
+        Funções.adicionarhistorico(cdb, x[0], f'{qt} Tamanhos {tam2}', 'Comprado', valor=x[1] * qt)
 
         q_t = Funções.pegarvalor(cdb, q_t=1)
 
@@ -123,24 +145,20 @@ while True:
                 print('\033[0;31m -> Este código de barras não existe. Por favor digite um código de barras'
                       ' válido <-\033[m')
 
-        tam = str(input('Qual o tamanho que você está adicionando? (U, P, M, G, GG) ')).strip().upper()
+        op = Funções.pegarvalor(cdb, op=1)
+
+        if op[0] == 0:
+            tam = str(input('Qual o tamanho que você está adicionando? (U, P, M, G, GG) ')).strip().upper()
+        else:
+            tam = int(input('Qual o tamanho que você está adicionando? (36, 38, 40, 42, 44, 46) '))
+
+        tam2 = tam
+
         qt = int(input('Deseja adicionar quantas unidades? '))
 
         x = Funções.pegarvalor(cdb, nome=1)
 
-        Funções.adicionarhistorico(cdb, x[0], f'{qt} Tamanhos {tam}', 'Adicionada')
-
-        if tam == 'U':
-            tam = 4
-        elif tam == 'P':
-            tam = 5
-        elif tam == 'M':
-            tam = 6
-        elif 'G' in tam:
-            if tam.count('G') == 1:
-                tam = 7
-            else:
-                tam = 8
+        tam = Funções.transformatam(tam, op)
 
         #  A validação vai servir para puxar quantas roupas do tamanho x tem, para assim eu poder atualizar no banco -
         # de dadosqt
@@ -151,6 +169,9 @@ while True:
         q_t = Funções.pegarvalor(cdb, q_t=1)
 
         Funções.remocaoeadicao(cdb, tam, qt+qt2, q_t[0]+qt)
+
+        Funções.adicionarhistorico(cdb, x[0], f'{qt} Tamanhos {tam2}', 'Adicionada')
+
         print('Peças de roupas adicionado com sucesso')
 
     elif opcao == 5:
@@ -158,7 +179,7 @@ while True:
         Funções.verhistorico()
 
     elif opcao == 6:
-        Funções.temporario()
+        Funções.criatabela()
 
     else:
         # Usuário não digitou um valor válido
