@@ -85,20 +85,22 @@ def verlista():
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    print('-'*144)
-    print(f'|{"Código de barra":^17}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^18}|{"T U":^5}|'
-          f'{"T P":^5}|{"T M":^5}|{"T G":^5}|{"T GG":^6}|{"Op":^3}|{"T 36":^6}|{"T 38":^6}|{"T 40":^6}|{"T 42":^6}|'
-          f'{"T 44":^6}|{"T 46":^6}|')
-    print('-'*144)
+    # print('-'*144)
+    # print(f'|{"Código de barra":^17}|{"Nome da roupa":^20}|{"Valor":^7}|{"Quantidade Total":^18}|{"T U":^5}|'
+    #       f'{"T P":^5}|{"T M":^5}|{"T G":^5}|{"T GG":^6}|{"Op":^3}|{"T 36":^6}|{"T 38":^6}|{"T 40":^6}|{"T 42":^6}|'
+    #       f'{"T 44":^6}|{"T 46":^6}|')
+    # print('-'*144)
+    # for lista in c.execute('SELECT * FROM produtos'):
+    #     print(f'|{lista[0]:^17}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^18}|{lista[4]:^5}|{lista[5]:^5}|'
+    #           f'{lista[6]:^5}|{lista[7]:^5}|{lista[8]:^6}|{lista[15]:^3}|{lista[9]:^6}|{lista[10]:^6}|{lista[11]:^6}|'
+    #           f'{lista[12]:^6}|{lista[13]:^6}|{lista[14]:^6}|')
+    # print('-'*144)
 
-    for lista in c.execute('SELECT * FROM produtos'):
-        print(f'|{lista[0]:^17}|{lista[1]:^20}|{lista[2]:^7.2f}|{lista[3]:^18}|{lista[4]:^5}|{lista[5]:^5}|'
-              f'{lista[6]:^5}|{lista[7]:^5}|{lista[8]:^6}|{lista[15]:^3}|{lista[9]:^6}|{lista[10]:^6}|{lista[11]:^6}|'
-              f'{lista[12]:^6}|{lista[13]:^6}|{lista[14]:^6}|')
-
-    print('-'*144)
+    c.execute("SELECT * FROM PRODUTOS")
+    dados = c.fetchall()
 
     con.close()
+    return dados
 
 
 def verhistorico():
@@ -106,16 +108,22 @@ def verhistorico():
     """
     con = sqlite3.connect('dados.db')
     c = con.cursor()
-    print('-'*154)
 
-    print(f'|{"Data":^17}|{"Código de barra":^15}|{"Nome da roupa":^20}|{"Valor total":^11}'
-          f'|{"Tamanhos":^87}|{"Situação":^13}')
+    # print('-'*154)
+    #
+    # print(f'|{"Data":^17}|{"Código de barra":^15}|{"Nome da roupa":^20}|{"Valor total":^11}'
+    #       f'|{"Tamanhos":^87}|{"Situação":^13}')
+    #
+    # print('-'*154)
+    # for linha in c.execute('SELECT * FROM historico'):
+    #     print(f'|{linha[0]:^17}|{linha[1]:^15}|{linha[2]:^20}|{linha[3]:^11}|{linha[4]:^87}|{linha[5]:^13}')
+    #
+    # print('-'*154)
+    c.execute("SELECT * FROM historico")
+    dados = c.fetchall()
 
-    print('-'*154)
-    for linha in c.execute('SELECT * FROM historico'):
-        print(f'|{linha[0]:^17}|{linha[1]:^15}|{linha[2]:^20}|{linha[3]:^11}|{linha[4]:^87}|{linha[5]:^13}')
-
-    print('-'*154)
+    con.close()
+    return dados
 
 
 def validacao_cdb(cdb):

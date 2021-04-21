@@ -6,9 +6,9 @@ import uic2
 while True:
 
     opcao = int(input('[0] Cadastrar novas roupas\n'
-                      '[1] Retirar peças de roupas\n'
+                      '[1] Compras\n'
                       '[2] Parar o programa\n'
-                      '[3] Ver a lista de roupas\n'
+                      '[3] Ver o estoque\n'
                       '[4] Adicionar peças de roupas\n'
                       '[5] Ver o histórico de remoção de roupas\n'
                       'Digite uma opção: '))
@@ -127,11 +127,6 @@ while True:
         # Parar o programa
         break
 
-    elif opcao == 3:
-        # Ver lista de roupas
-
-        Funções.verlista()
-
     elif opcao == 4:
         # Adicionar peças de roupas
 
@@ -176,10 +171,6 @@ while True:
 
         print('Peças de roupas adicionado com sucesso')
 
-    elif opcao == 5:
-        # Ver o histórico de roupas
-        Funções.verhistorico()
-
     elif opcao == 6:
         Funções.criatabela()
 
@@ -189,8 +180,33 @@ while True:
 
 print('Fim do programa')
 
+
+def atualizarhistorico():
+    # Lê os dados do historico e mostra na tela
+    dados = Funções.verhistorico()
+    pro.verhistoricotabela.setRowCount(len(dados))
+
+    for m in range(0, len(dados)):
+        for b in range(0, 6):
+            pro.verhistoricotabela.setItem(m, b, QtWidgets.QTableWidgetItem(str(dados[m][b])))
+
+
+def atualizarestoque():
+    # Lê os dados do banco de dados e mostra no "Ver Estoque"
+    dados = Funções.verlista()
+    pro.verestoquetabela.setRowCount(len(dados))
+
+    for m in range(0, len(dados)):
+        for b in range(0, 16):
+            pro.verestoquetabela.setItem(m, b, QtWidgets.QTableWidgetItem(str(dados[m][b])))
+
+
 app = QtWidgets.QApplication([])
 pro = uic2.loadUi('app.ui')
+
+pro.atualizarestoque.clicked.connect(atualizarestoque)
+pro.atualizarhistorico.clicked.connect(atualizarhistorico)
+
 
 pro.show()
 app.exec()
