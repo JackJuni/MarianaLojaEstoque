@@ -1,4 +1,6 @@
 import Funções
+from PyQt5 import QtWidgets
+import uic2
 # from Funções import *  -> Opção <-
 
 while True:
@@ -186,3 +188,9 @@ while True:
         print('\033[0;31m -> Digite um valor válido <- \033[m')
 
 print('Fim do programa')
+
+app = QtWidgets.QApplication([])
+pro = uic2.loadUi('app.ui')
+
+pro.show()
+app.exec()
