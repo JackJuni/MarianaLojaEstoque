@@ -6,15 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1370</width>
+    <width>1372</width>
     <height>700</height>
    </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(60, 255, 233);</string>
+   <string notr="true">background-color: rgb(134, 134, 134);</string>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -25,219 +28,160 @@
      <rect>
       <x>260</x>
       <y>0</y>
-      <width>150</width>
-      <height>141</height>
+      <width>81</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;marianalemosicon.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>0</y>
+      <width>71</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>10</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 85, 127);</string>
+    </property>
+    <property name="text">
+     <string>Cadastrar novas roupas</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>10</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 255, 0);</string>
+    </property>
+    <property name="text">
+     <string>Fazer compra</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frametotal">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>140</y>
-      <width>1341</width>
-      <height>571</height>
+      <y>120</y>
+      <width>1371</width>
+      <height>581</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(60, 255, 233);</string>
+     <string notr="true">background-color: rgb(38, 114, 255);
+background-color: rgb(130, 255, 84);</string>
     </property>
-    <property name="tabPosition">
-     <enum>QTabWidget::North</enum>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="tabShape">
-     <enum>QTabWidget::Rounded</enum>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="currentIndex">
-     <number>3</number>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>100</width>
-      <height>100</height>
-     </size>
-    </property>
-    <property name="elideMode">
-     <enum>Qt::ElideNone</enum>
-    </property>
-    <property name="usesScrollButtons">
-     <bool>false</bool>
-    </property>
-    <property name="documentMode">
-     <bool>true</bool>
-    </property>
-    <property name="tabsClosable">
-     <bool>false</bool>
-    </property>
-    <property name="movable">
-     <bool>false</bool>
-    </property>
-    <property name="tabBarAutoHide">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Ver o Estoque</string>
-     </attribute>
-     <widget class="QTableWidget" name="verestoquetabela">
+    <widget class="QFrame" name="frameadicionarpecas">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-3</y>
+       <width>1371</width>
+       <height>651</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(134, 194, 38);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>1311</width>
-        <height>401</height>
+        <x>150</x>
+        <y>50</y>
+        <width>103</width>
+        <height>16</height>
        </rect>
       </property>
-      <property name="cursor" stdset="0">
-       <cursorShape>ArrowCursor</cursorShape>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
-      <property name="accessibleName">
-       <string/>
+      <property name="text">
+       <string>Código de barras:</string>
       </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="verticalScrollMode">
-       <enum>QAbstractItemView::ScrollPerPixel</enum>
-      </property>
-      <property name="horizontalScrollMode">
-       <enum>QAbstractItemView::ScrollPerPixel</enum>
-      </property>
-      <property name="rowCount">
-       <number>0</number>
-      </property>
-      <property name="columnCount">
-       <number>15</number>
-      </property>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Código de barras</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nome</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Valor</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Quantidade total</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos P</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos M</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos G</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos GG</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Opção</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 36</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 38</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 40</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 42</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 44</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Tamanhos 46</string>
-       </property>
-      </column>
      </widget>
-     <widget class="QPushButton" name="atualizarestoque">
+     <widget class="QLineEdit" name="lineEdit">
       <property name="geometry">
        <rect>
-        <x>600</x>
-        <y>460</y>
-        <width>131</width>
-        <height>51</height>
+        <x>260</x>
+        <y>50</y>
+        <width>92</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>50</y>
+        <width>32</width>
+        <height>23</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(46, 255, 133);
-</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Atualizar</string>
+       <string/>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="mouseTracking">
-      <bool>false</bool>
-     </property>
-     <attribute name="title">
-      <string>Adicionar peças de roupas</string>
-     </attribute>
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>370</x>
+        <y>410</y>
         <width>161</width>
         <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 170, 255);</string>
+       <string notr="true">background-color: rgb(0, 170, 255);
+</string>
       </property>
       <property name="text">
        <string>Adicionar peças de roupas</string>
@@ -247,58 +191,41 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_3">
-     <attribute name="title">
-      <string>Cadastrar novas roupas</string>
-     </attribute>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>70</y>
-        <width>141</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 85, 127);</string>
-      </property>
-      <property name="text">
-       <string>Cadastrar novas roupas</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_4">
-     <attribute name="title">
-      <string>Ver o histórico</string>
-     </attribute>
-     <widget class="QPushButton" name="atualizarhistorico">
-      <property name="geometry">
-       <rect>
-        <x>420</x>
-        <y>470</y>
-        <width>161</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 0);</string>
-      </property>
-      <property name="text">
-       <string>Atualizar</string>
-      </property>
-     </widget>
+    <widget class="QFrame" name="frameverhistorico">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1371</width>
+       <height>701</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(58, 255, 199);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
      <widget class="QTableWidget" name="verhistoricotabela">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>30</x>
         <y>20</y>
-        <width>1311</width>
-        <height>431</height>
+        <width>1331</width>
+        <height>451</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
       </property>
       <property name="verticalScrollMode">
        <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -309,17 +236,20 @@
       <property name="gridStyle">
        <enum>Qt::SolidLine</enum>
       </property>
-      <property name="wordWrap">
+      <property name="sortingEnabled">
        <bool>false</bool>
       </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+      <property name="cornerButtonEnabled">
+       <bool>true</bool>
+      </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>150</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>31</number>
+       <number>220</number>
       </attribute>
       <attribute name="verticalHeaderDefaultSectionSize">
-       <number>35</number>
+       <number>50</number>
       </attribute>
       <column>
        <property name="text">
@@ -352,29 +282,453 @@
        </property>
       </column>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_5">
-     <attribute name="title">
-      <string>Compras</string>
-     </attribute>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="atualizarhistorico">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>80</y>
-        <width>151</width>
+        <x>620</x>
+        <y>510</y>
+        <width>161</width>
         <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 255, 0);</string>
+       <string notr="true">background-color: rgb(255, 255, 0);</string>
       </property>
       <property name="text">
-       <string>Retirar peças de roupas</string>
+       <string>Atualizar</string>
       </property>
      </widget>
     </widget>
+    <widget class="QFrame" name="frameverestoque">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1371</width>
+       <height>701</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(38, 114, 255);
+background-color: rgb(255, 0, 0);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QTableWidget" name="verestoquetabela">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>1351</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="accessibleName">
+       <string/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(228, 249, 255);</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
+      <property name="columnCount">
+       <number>16</number>
+      </property>
+      <column>
+       <property name="text">
+        <string>Código de barras</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nome</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Valor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Quantidade total</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos U</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos P</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos M</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos G</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos GG</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 36</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 38</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 40</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 42</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 44</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tamanhos 46</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Opção</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="atualizarestoque">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>510</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(228, 249, 255);
+background-color: rgb(176, 205, 211);
+</string>
+      </property>
+      <property name="text">
+       <string>Atualizar</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frameclientes">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1371</width>
+       <height>701</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 0);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <zorder>frameclientes</zorder>
+    <zorder>frameadicionarpecas</zorder>
+    <zorder>frameverhistorico</zorder>
+    <zorder>frameverestoque</zorder>
    </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>685</x>
+      <y>77</y>
+      <width>229</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Compras</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="abaclientes">
+    <property name="geometry">
+     <rect>
+      <x>914</x>
+      <y>77</y>
+      <width>228</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Clientes</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="abaestoque">
+    <property name="geometry">
+     <rect>
+      <x>-2</x>
+      <y>77</y>
+      <width>231</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Estoque</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="abahistorico">
+    <property name="geometry">
+     <rect>
+      <x>457</x>
+      <y>77</y>
+      <width>228</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Ver historico</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_9">
+    <property name="geometry">
+     <rect>
+      <x>1142</x>
+      <y>77</y>
+      <width>228</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Estoque</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="abaadicionar">
+    <property name="geometry">
+     <rect>
+      <x>229</x>
+      <y>77</y>
+      <width>228</width>
+      <height>43</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(53, 220, 103);</string>
+    </property>
+    <property name="text">
+     <string>Adicionar peças</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <zorder>pushButton_5</zorder>
+   <zorder>abaclientes</zorder>
+   <zorder>abaestoque</zorder>
+   <zorder>abahistorico</zorder>
+   <zorder>pushButton_9</zorder>
+   <zorder>abaadicionar</zorder>
+   <zorder>frametotal</zorder>
+   <zorder>icon</zorder>
+   <zorder>label_2</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
  </widget>
  <resources>
