@@ -1,5 +1,6 @@
 import Funções
 from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtGui import QIntValidator
 import uic2
 # from Funções import *  -> Opção <-
 
@@ -181,6 +182,22 @@ import uic2
 # print('Fim do programa')
 
 
+def pesquisar():
+    cdb = int(pro.cdb_add.text())
+    validacao = Funções.validacao_cdb(cdb)
+    dados = 0
+    if validacao:
+        dados = Funções.pegarvalor(cdb, todos=1)
+        dados.insert(0, cdb)
+
+        for y in range(0, 16):
+            pro.verestoquetabela_2.setItem(0, y, QtWidgets.QTableWidgetItem(str(dados[y])))
+    else:
+        QtWidgets.QMessageBox.about(pro, 'Dados inválidos', 'Os dados inseridos estão incorretos')
+    # print(cdb)
+    # print(dados)
+
+
 def atualizarhistorico():
     # Lê os dados do historico e mostra na tela
     dados = Funções.verhistorico()
@@ -202,6 +219,7 @@ def atualizarestoque():
 
 
 def abrirestoque():
+    pro.framecompras.close()
     pro.frameverhistorico.close()
     pro.frameadicionarpecas.close()
     pro.frameclientes.close()
@@ -209,6 +227,7 @@ def abrirestoque():
 
 
 def abrirhistorico():
+    pro.framecompras.close()
     pro.frameadicionarpecas.close()
     pro.frameclientes.close()
     pro.frameverestoque.close()
@@ -216,6 +235,7 @@ def abrirhistorico():
 
 
 def abriradicionarpecas():
+    pro.framecompras.close()
     pro.frameclientes.close()
     pro.frameverestoque.close()
     pro.frameverhistorico.close()
@@ -223,24 +243,44 @@ def abriradicionarpecas():
 
 
 def abrirclientes():
+    pro.framecompras.close()
     pro.frameverestoque.close()
     pro.frameverhistorico.close()
     pro.frameadicionarpecas.close()
     pro.frameclientes.show()
 
+def abrircompras():
+    pro.frameverestoque.close()
+    pro.frameverhistorico.close()
+    pro.frameadicionarpecas.close()
+    pro.frameclientes.close()
+    pro.framecompras.show()
+
 
 app = QtWidgets.QApplication([])
 pro = uic2.loadUi('app.ui')
 
+pro.cdb_add.setValidator(QIntValidator())
 
+# Botões
 pro.atualizarestoque.clicked.connect(atualizarestoque)
 pro.atualizarhistorico.clicked.connect(atualizarhistorico)
-pro.pushButton_4.setIcon(QtGui.QIcon('dsds.png'))
+pro.pesquisar.clicked.connect(pesquisar)
 
+# Icones
+pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
+pro.abahistorico.setIcon(QtGui.QIcon('icons/history.png'))
+pro.abaadicionar.setIcon(QtGui.QIcon('icons/add.png'))
+pro.abaestoque.setIcon(QtGui.QIcon('icons/stock.png'))
+pro.abaclientes.setIcon(QtGui.QIcon('icons/user.png'))
+pro.abacompras.setIcon(QtGui.QIcon('icons/cart.png'))
+
+# Abas
 pro.abaestoque.clicked.connect(abrirestoque)
 pro.abahistorico.clicked.connect(abrirhistorico)
 pro.abaadicionar.clicked.connect(abriradicionarpecas)
 pro.abaclientes.clicked.connect(abrirclientes)
+pro.abacompras.clicked.connect(abrircompras)
 
 pro.show()
 app.exec()

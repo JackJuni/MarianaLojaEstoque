@@ -168,7 +168,7 @@ def validacao_tr(cdb, tam, qp=1, op=1):
 
 
 def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0, q_36=0, q_38=0, q_40=0, q_42=0,
-               q_44=0, q_46=0, op=0):
+               q_44=0, q_46=0, op=0, todos=0):
     """ Função para pegar um valor x. Para pegar um valor desejado é só especificar
     :param cd: Código de barras
     :param nome: Nome da roupa
@@ -186,11 +186,15 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0, q
     :param q_44: Quantidade de Tamanhos 44
     :param q_46: Quantidade de Tamanhos 46
     :param op: Para diferenciar de shorts/bermudas. 1 Short/bermudas, 0 Peças de roupas normais
+    :param todos: Para pegar todos os dados
     :return:  Os valores desejados em uma lista. Para pegar o valor no return é só dá um: lista[0]
     """
 
     con = sqlite3.connect("dados.db")
     c = con.cursor()
+
+    if todos == 1:
+        nome = valor = q_t = q_u = q_p = q_m = q_g = q_gg = q_36 = q_38 = q_40 = q_42 = q_44 = q_46 = op = 1
 
     dados = []
     for linha in c.execute("SELECT * FROM produtos"):
