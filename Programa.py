@@ -182,8 +182,38 @@ import uic2
 # print('Fim do programa')
 
 
+def editarquant():
+    print('a')
+#     pro.cdb.setText()
+
+
+def mudoucombobox():
+    op = pro.tipotamanho.currentIndex()
+    # Tamanho bermuda o index é 1 e o tamanho normal é 0
+    # tamanho1 -> tamanho6 label // xtamanho1 -> xtamanho6 spinbox
+    if op == 0:
+        pro.tamanho6.hide()
+        pro.xtamanho6.hide()
+        pro.tamanho1.setText('Tamanho U')
+        pro.tamanho2.setText('Tamanho P')
+        pro.tamanho3.setText('Tamanho M')
+        pro.tamanho4.setText('Tamanho G')
+        pro.tamanho5.setText('Tamanho GG')
+    else:
+        pro.tamanho1.setText('Tamanho 36')
+        pro.tamanho2.setText('Tamanho 38')
+        pro.tamanho3.setText('Tamanho 40')
+        pro.tamanho4.setText('Tamanho 42')
+        pro.tamanho5.setText('Tamanho 44')
+        pro.tamanho6.show()
+        pro.xtamanho6.show()
+
+
 def pesquisar():
     cdb = int(pro.cdb_add.text())
+    print('->', cdb)
+    if cdb == '':
+        cdb = 0000
     validacao = Funções.validacao_cdb(cdb)
     dados = 0
     if validacao:
@@ -192,6 +222,40 @@ def pesquisar():
 
         for y in range(0, 16):
             pro.verestoquetabela_2.setItem(0, y, QtWidgets.QTableWidgetItem(str(dados[y])))
+
+        # Limpa todos os dados passados antes
+        pro.cdb.clear()
+        pro.descricao.clear()
+        pro.valor.clear()
+        pro.tipotamanho.setCurrentIndex(0)
+        mudoucombobox()
+
+        # Inserindo os dados na janela
+        pro.cdb.insert(str(dados[0]))
+        # pro.cdb.readOnly(True)
+        pro.descricao.insert(dados[1])
+        # pro.descricao.setReadOnly()
+        pro.valor.insert('R$'+str(dados[2]+0))
+        # pro.valor.readOnly()
+        pro.tipotamanho.setCurrentIndex(dados[15])
+        # pro.valor
+
+        # mudoucombobox()
+        if dados[15] == 1:
+            pro.xtamanho1.setValue(dados[9])
+            pro.xtamanho2.setValue(dados[10])
+            pro.xtamanho3.setValue(dados[11])
+            pro.xtamanho4.setValue(dados[12])
+            pro.xtamanho5.setValue(dados[13])
+            pro.xtamanho6.setValue(dados[14])
+        else:
+            pro.xtamanho1.setValue(dados[4])
+            pro.xtamanho2.setValue(dados[5])
+            pro.xtamanho3.setValue(dados[6])
+            pro.xtamanho4.setValue(dados[7])
+            pro.xtamanho5.setValue(dados[8])
+
+
     else:
         QtWidgets.QMessageBox.about(pro, 'Dados inválidos', 'Os dados inseridos estão incorretos')
     # print(cdb)
@@ -260,12 +324,18 @@ def abrircompras():
 app = QtWidgets.QApplication([])
 pro = uic2.loadUi('app.ui')
 
+# Isso são valores padrões
 pro.cdb_add.setValidator(QIntValidator())
+pro.tipotamanho.currentIndexChanged.connect(mudoucombobox)
+pro.tamanho6.hide()
+pro.xtamanho6.hide()
+# pro.comboBox.setCurrentIndex(1)
 
 # Botões
 pro.atualizarestoque.clicked.connect(atualizarestoque)
 pro.atualizarhistorico.clicked.connect(atualizarhistorico)
 pro.pesquisar.clicked.connect(pesquisar)
+pro.editarquantidade.clicked.connect(editarquant)
 
 # Icones
 pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
