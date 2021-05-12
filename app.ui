@@ -29,7 +29,7 @@
       <x>0</x>
       <y>120</y>
       <width>1371</width>
-      <height>581</height>
+      <height>591</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -52,7 +52,7 @@ background-color: rgb(130, 255, 84);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(134, 194, 38);</string>
+      <string notr="true">background-color: rgb(27, 153, 139);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -63,16 +63,21 @@ background-color: rgb(130, 255, 84);</string>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>132</y>
-        <width>103</width>
-        <height>16</height>
+        <x>92</x>
+        <y>129</y>
+        <width>131</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(250, 253, 252);</string>
       </property>
       <property name="text">
        <string>Código de barras:</string>
@@ -134,7 +139,7 @@ background-color: rgb(130, 255, 84);</string>
        <string/>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(228, 249, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -239,29 +244,7 @@ background-color: rgb(130, 255, 84);</string>
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="editarquantidade">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>230</y>
-        <width>161</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(216, 216, 39);</string>
-      </property>
-      <property name="text">
-       <string>Editar quantidade</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="janela2">
       <property name="geometry">
        <rect>
         <x>580</x>
@@ -271,8 +254,7 @@ background-color: rgb(130, 255, 84);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(101, 255, 245);
-background-color: rgb(0, 85, 127);</string>
+       <string notr="true">background-color: rgb(45, 48, 71);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -297,6 +279,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos P</string>
           </property>
@@ -309,6 +294,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos M</string>
           </property>
@@ -316,6 +304,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="0" column="1">
          <widget class="QSpinBox" name="xtamanho1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -328,6 +319,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos GG</string>
           </property>
@@ -335,6 +329,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="2" column="5">
          <widget class="QSpinBox" name="xtamanho6">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -347,6 +344,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos G</string>
           </property>
@@ -354,6 +354,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="0" column="3">
          <widget class="QSpinBox" name="xtamanho3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -361,6 +364,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="2" column="3">
          <widget class="QSpinBox" name="xtamanho4">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -373,6 +379,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos U</string>
           </property>
@@ -380,6 +389,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="0" column="5">
          <widget class="QSpinBox" name="xtamanho5">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -387,6 +399,9 @@ background-color: rgb(0, 85, 127);</string>
         </item>
         <item row="2" column="1">
          <widget class="QSpinBox" name="xtamanho2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
@@ -399,6 +414,9 @@ background-color: rgb(0, 85, 127);</string>
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(254, 254, 254);</string>
+          </property>
           <property name="text">
            <string>Tamanhos 46</string>
           </property>
@@ -406,7 +424,7 @@ background-color: rgb(0, 85, 127);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="atualizar">
        <property name="geometry">
         <rect>
          <x>280</x>
@@ -415,8 +433,14 @@ background-color: rgb(0, 85, 127);</string>
          <height>41</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(0, 170, 255);
+        <string notr="true">background-color: rgb(36, 101, 105);
+color: rgb(255, 255, 255);
 </string>
        </property>
        <property name="text">
@@ -441,7 +465,7 @@ background-color: rgb(0, 85, 127);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(254, 254, 254);</string>
        </property>
        <property name="text">
         <string>Código de barras</string>
@@ -449,7 +473,7 @@ background-color: rgb(0, 85, 127);</string>
       </widget>
       <widget class="QLineEdit" name="cdb">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -466,12 +490,12 @@ background-color: rgb(0, 85, 127);</string>
         <string/>
        </property>
        <property name="readOnly">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
       <widget class="QLineEdit" name="descricao">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -506,7 +530,7 @@ background-color: rgb(0, 85, 127);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(254, 254, 254);</string>
        </property>
        <property name="text">
         <string>Descrição</string>
@@ -514,7 +538,7 @@ background-color: rgb(0, 85, 127);</string>
       </widget>
       <widget class="QComboBox" name="tipotamanho">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -570,7 +594,7 @@ background-color: rgb(0, 85, 127);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(254, 254, 254);</string>
        </property>
        <property name="text">
         <string>Tipo de tamanho</string>
@@ -591,7 +615,7 @@ background-color: rgb(0, 85, 127);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">color: rgb(254, 254, 254);</string>
        </property>
        <property name="text">
         <string>Valor</string>
@@ -599,7 +623,7 @@ background-color: rgb(0, 85, 127);</string>
       </widget>
       <widget class="QLineEdit" name="valor">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -619,36 +643,91 @@ background-color: rgb(0, 85, 127);</string>
         <bool>false</bool>
        </property>
       </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>434</x>
+         <y>60</y>
+         <width>16</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 254, 254);</string>
+       </property>
+       <property name="text">
+        <string>R$</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cadastrar">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>300</y>
+         <width>211</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(36, 101, 105);
+color: rgb(255, 255, 255);
+</string>
+       </property>
+       <property name="text">
+        <string>Cadastrar</string>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>170</y>
-        <width>301</width>
+        <x>199</x>
+        <y>204</y>
+        <width>191</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>14</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+        <underline>false</underline>
+        <strikeout>false</strikeout>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
       <property name="text">
-       <string>O que deseja fazer com o produto?</string>
+       <string>O que deseja fazer?</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="editar">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>230</y>
+        <x>21</x>
+        <y>257</y>
         <width>161</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(216, 216, 39);</string>
+       <string notr="true">background-color: rgb(255, 253, 130);</string>
       </property>
       <property name="text">
        <string>Editar</string>
@@ -657,39 +736,52 @@ background-color: rgb(0, 85, 127);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="cadastrarnovo">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>340</y>
+        <x>199</x>
+        <y>257</y>
         <width>161</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(146, 48, 0);</string>
+       <string notr="true">background-color: rgb(255, 253, 130);</string>
       </property>
       <property name="text">
-       <string>Deletar</string>
+       <string>Cadastrar novos produtos</string>
       </property>
       <property name="flat">
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="excluir">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>340</y>
+        <x>378</x>
+        <y>257</y>
         <width>161</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(216, 216, 39);</string>
+       <string notr="true">background-color: rgb(232, 72, 85);
+color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
-       <string>Novo produto</string>
+       <string>Excluir</string>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -706,7 +798,7 @@ background-color: rgb(0, 85, 127);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(58, 255, 199);</string>
+      <string notr="true">background-color: rgb(27, 153, 139);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -814,8 +906,7 @@ background-color: rgb(0, 85, 127);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(38, 114, 255);
-background-color: rgb(255, 0, 0);</string>
+      <string notr="true">background-color: rgb(27, 153, 139);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -972,7 +1063,7 @@ background-color: rgb(176, 205, 211);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 0);</string>
+      <string notr="true">background-color: rgb(27, 153, 139);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -991,8 +1082,7 @@ background-color: rgb(176, 205, 211);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 0);
-background-color: rgb(85, 85, 127);</string>
+      <string notr="true">background-color: rgb(27, 153, 139);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
