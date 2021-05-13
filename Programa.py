@@ -182,20 +182,39 @@ import uic2
 # print('Fim do programa')
 
 
-def novocadastro():
-    # Função para habilitar as funções de cadastro
+def habilitar(op):
+    """
+    Função para habilitar ou desabilitar as lineedit do "janela 2"
+    :param op = opção desejada se for 1 ele vai habilitar tudo, se for 0 ele vai desabilitar
+    """
+    if op == 1:
+        pro.cdb.setEnabled(True)
+        pro.descricao.setEnabled(True)
+        pro.valor.setEnabled(True)
+        pro.tipotamanho.setEnabled(True)
+        pro.xtamanho1.setEnabled(True)
+        pro.xtamanho2.setEnabled(True)
+        pro.xtamanho3.setEnabled(True)
+        pro.xtamanho4.setEnabled(True)
+        pro.xtamanho5.setEnabled(True)
+        pro.xtamanho6.setEnabled(True)
+    else:
+        pro.cdb.setEnabled(False)
+        pro.descricao.setEnabled(False)
+        pro.valor.setEnabled(False)
+        pro.tipotamanho.setEnabled(False)
+        pro.xtamanho1.setEnabled(False)
+        pro.xtamanho2.setEnabled(False)
+        pro.xtamanho3.setEnabled(False)
+        pro.xtamanho4.setEnabled(False)
+        pro.xtamanho5.setEnabled(False)
+        pro.xtamanho6.setEnabled(False)
 
-    pro.atualizar.hide()
-    pro.cdb.setEnabled(True)
-    pro.descricao.setEnabled(True)
-    pro.valor.setEnabled(True)
-    pro.tipotamanho.setEnabled(True)
-    pro.xtamanho1.setEnabled(True)
-    pro.xtamanho2.setEnabled(True)
-    pro.xtamanho3.setEnabled(True)
-    pro.xtamanho4.setEnabled(True)
-    pro.xtamanho5.setEnabled(True)
-    pro.xtamanho6.setEnabled(True)
+
+def limparjanela2():
+    """
+    Função para limpar todos os dados do frama chamado "janela 2"
+    """
     pro.cdb.clear()
     pro.descricao.clear()
     pro.valor.clear()
@@ -205,12 +224,20 @@ def novocadastro():
     pro.xtamanho4.clear()
     pro.xtamanho5.clear()
     pro.xtamanho6.clear()
+
+
+def novocadastro():
+    # Função para habilitar as funções de cadastro
+
+    pro.atualizar.hide()
     pro.cadastrar.show()
+
+    habilitar(1)
+    limparjanela2()
 
 
 def cadastrar():
     # Função para cadastrar novos produtos
-    cdb = 0
     try:
         cdb = int(pro.cdb.text())
     except ValueError:
@@ -218,66 +245,65 @@ def cadastrar():
     else:
         pass
 
-    x = Funções.validacao_cdb(cdb)
-    if x:
-        QtWidgets.QMessageBox.about(pro, 'Algo deu errado', 'Este código de barras já existe')
+        x = Funções.validacao_cdb(cdb)
+        if x:
+            QtWidgets.QMessageBox.about(pro, 'Algo deu errado', 'Este código de barras já existe')
 
-    else:
-        descricao = pro.descricao.text()
-        valor = float(pro.valor.text())
-        op = pro.tipotamanho.currentIndex()
-        if op == 0:
-            q_1 = int(pro.xtamanho1.text())
-            q_2 = int(pro.xtamanho2.text())
-            q_3 = int(pro.xtamanho3.text())
-            q_4 = int(pro.xtamanho4.text())
-            q_5 = int(pro.xtamanho5.text())
-            q_t = q_1 + q_2 + q_3 + q_4 + q_5
-            Funções.cadastrar(cdb, descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, op)
-            Funções.adicionarhistorico(cdb, descricao,
-                                       f'{q_1} Tamanhos U, {q_2} Tamanhos P, {q_3} Tamanhos M, {q_4} Tamanhos G, '
-                                       f'{q_5} Tamanhos GG', 'Novo Cadastro', 0)
         else:
+            descricao = pro.descricao.text()
+            valor = float(pro.valor.text())
+            op = pro.tipotamanho.currentIndex()
             q_1 = int(pro.xtamanho1.text())
             q_2 = int(pro.xtamanho2.text())
             q_3 = int(pro.xtamanho3.text())
             q_4 = int(pro.xtamanho4.text())
             q_5 = int(pro.xtamanho5.text())
-            q_6 = int(pro.xtamanho6.text())
-            q_t = q_1 + q_2 + q_3 + q_4 + q_5 + q_6
-            Funções.adicionarhistorico(cdb, descricao, f'{q_1} Tamanhos 36, {q_2} Tamanhos 38, {q_3} Tamanhos 40, '
-                                                  f'{q_4} Tamanhos 42, {q_5} Tamanhos 44, {q_6} Tamanhos 46',
-                                       'Novo Cadastro', 0)
-            Funções.cadastrar(cdb, descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, op, q_6)
+            if op == 0:
+                q_t = q_1 + q_2 + q_3 + q_4 + q_5
+                Funções.cadastrar(cdb, descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, op)
+                Funções.adicionarhistorico(cdb, descricao,
+                                           f'{q_1} Tamanhos U, {q_2} Tamanhos P, {q_3} Tamanhos M, {q_4} Tamanhos G, '
+                                           f'{q_5} Tamanhos GG', 'Novo Cadastro', 0)
+            else:
+                q_6 = int(pro.xtamanho6.text())
+                q_t = q_1 + q_2 + q_3 + q_4 + q_5 + q_6
+                Funções.adicionarhistorico(cdb, descricao, f'{q_1} Tamanhos 36, {q_2} Tamanhos 38, {q_3} Tamanhos 40, '
+                                                           f'{q_4} Tamanhos 42, {q_5} Tamanhos 44, {q_6} Tamanhos 46',
+                                           'Novo Cadastro', 0)
+                Funções.cadastrar(cdb, descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, op, q_6)
+            # Mensagem que deu tudo certo
+            QtWidgets.QMessageBox.about(pro, 'Sucesso', f'A peça {descricao} foi cadastrada com sucesso!')
 
 
 def editar():
     # Função para habilitar as edições de peças
     try:
-        cdb = int(pro.cdb_add.text())
+        int(pro.cdb_add.text())
     except ValueError:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras primeiro!')
     else:
         pass
+        pro.cadastrar.hide()
         pro.atualizar.show()
-
-    pro.cadastrar.hide()
-    pro.descricao.setEnabled(True)
-    pro.valor.setEnabled(True)
-    pro.xtamanho1.setEnabled(True)
-    pro.xtamanho2.setEnabled(True)
-    pro.xtamanho3.setEnabled(True)
-    pro.xtamanho4.setEnabled(True)
-    pro.xtamanho5.setEnabled(True)
-    pro.xtamanho6.setEnabled(True)
-
+        habilitar(1)
+        pro.cdb.setEnabled(False)
+        pro.tipotamanho.setEnabled(False)
 
 
 def atualizar():
     """ Função para atualizar dados no banco de dados
-    Os dados editáveis são os -> Descrição, Valor, e Todos os tamanhos
+    Os dados editáveis são os -> Descrição, Valor, e Todos os xtamanhos
     Os dados não editáveis são os -> Código de barras e Tipo de Tamanho"""
-
+    cdb = int(pro.cdb.text())
+    descricao = pro.descricao.text()
+    valor = float(pro.valor.text())
+    q_1 = int(pro.xtamanho1.text())
+    q_2 = int(pro.xtamanho2.text())
+    q_3 = int(pro.xtamanho3.text())
+    q_4 = int(pro.xtamanho4.text())
+    q_5 = int(pro.xtamanho5.text())
+    op = Funções.pegarvalor(cdb, op=1)
+    print(op[0])
 
 
 def mudoucombobox():
@@ -312,7 +338,6 @@ def pesquisar():
         pass
 
     validacao = Funções.validacao_cdb(cdb)
-    dados = 0
     if validacao:
         dados = Funções.pegarvalor(cdb, todos=1)
         dados.insert(0, cdb)
@@ -321,31 +346,19 @@ def pesquisar():
             pro.verestoquetabela_2.setItem(0, y, QtWidgets.QTableWidgetItem(str(dados[y])))
 
         # Limpa todos os dados passados antes
-        pro.cdb.clear()
-        pro.descricao.clear()
-        pro.valor.clear()
+        # pro.cdb.clear()
+        # pro.descricao.clear()
+        # pro.valor.clear()
+        limparjanela2()
         pro.tipotamanho.setCurrentIndex(0)
         mudoucombobox()
-        pro.cdb.setEnabled(False)
-        pro.descricao.setEnabled(False)
-        pro.valor.setEnabled(False)
-        pro.tipotamanho.setEnabled(False)
-        pro.xtamanho1.setEnabled(False)
-        pro.xtamanho2.setEnabled(False)
-        pro.xtamanho3.setEnabled(False)
-        pro.xtamanho4.setEnabled(False)
-        pro.xtamanho5.setEnabled(False)
-        pro.xtamanho6.setEnabled(False)
+        habilitar(0)
 
         # Inserindo os dados na janela
         pro.cdb.insert(str(dados[0]))
-        # pro.cdb.readOnly(True)
         pro.descricao.insert(dados[1])
-        # pro.descricao.setReadOnly()
         pro.valor.insert(f'{float(dados[2]+0):.2f}')
-        # pro.valor.readOnly()
         pro.tipotamanho.setCurrentIndex(dados[15])
-        # pro.valor
 
         # mudoucombobox()
         if dados[15] == 1:
@@ -362,11 +375,8 @@ def pesquisar():
             pro.xtamanho4.setValue(dados[7])
             pro.xtamanho5.setValue(dados[8])
 
-
     else:
         QtWidgets.QMessageBox.about(pro, 'Dados inválidos', 'Os dados inseridos estão incorretos')
-    # print(cdb)
-    # print(dados)
 
 
 def atualizarhistorico():
@@ -435,12 +445,20 @@ pro = uic2.loadUi('app.ui')
 # Isso são valores padrões
 pro.cdb_add.setValidator(QIntValidator())
 pro.cdb.setValidator(QIntValidator())
+pro.valor.setValidator(QIntValidator())
 pro.tipotamanho.currentIndexChanged.connect(mudoucombobox)
 pro.tamanho6.hide()
 pro.xtamanho6.hide()
 pro.atualizar.hide()
 pro.cadastrar.hide()
 # pro.comboBox.setCurrentIndex(1)
+# Colunas
+pro.verhistoricotabela.setColumnWidth(0, 100)
+pro.verhistoricotabela.setColumnWidth(1, 100)
+pro.verhistoricotabela.setColumnWidth(2, 360)
+pro.verhistoricotabela.setColumnWidth(3, 100)
+pro.verhistoricotabela.setColumnWidth(4, 530)
+pro.verhistoricotabela.setColumnWidth(5, 100)
 
 # Botões
 pro.atualizarestoque.clicked.connect(atualizarestoque)
