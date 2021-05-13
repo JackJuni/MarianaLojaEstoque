@@ -1,4 +1,4 @@
-# Programa para a loja da mariana.
+# Programa para a loja MarianaLemosStore.
 ### Um controle de estoque para:
 
 - Cadastrar novas roupas, com código de barras
