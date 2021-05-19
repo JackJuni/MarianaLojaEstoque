@@ -30,50 +30,35 @@ def cadastrar(cdb, nome, valor, q_t, q_1, q_2, q_3, q_4, q_5, op, q_6=0):
     con.close()
 
 
-def remocaoeadicao(cdb, tam, qt, q_t):
+def remocaoeadicao(cdb, op, q_t, q_1, q_2, q_3, q_4, q_5, q_6, descricao, valor):
     """ Função para remover peças de roupa
     :param cdb: Código de barras
     :param q_t: Quantidade total
-    :param qt: quantidade a ser retirada/adicionada
-    :param tam: tamanho da roupa a ser retirada/adicionada
+    :param op: Tipo de tamanho de roupa, 1 para tamanhos de bermudas
+    :param q_1: Referente aos tamanhos U ou 36
+    :param q_2: Referente aos tamanhos P ou 38
+    :param q_3: Referente aos tamanhos M ou 40
+    :param q_4: Referente aos tamanhos G ou 42
+    :param q_5: Referente aos tamanhos GG ou 44
+    :param q_6: Referente ao tamanho 46
+    :param descricao: O nome/descrição do produto
+    :param valor: Preço do produto
     """
 
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    if tam == 4:
-        c.execute("UPDATE produtos SET q_u = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 5:
-        c.execute("UPDATE produtos SET q_p = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 6:
-        c.execute("UPDATE produtos SET q_m = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 7:
-        c.execute("UPDATE produtos SET q_g = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 8:
-        c.execute("UPDATE produtos SET q_gg = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 9:
-        c.execute("UPDATE produtos SET q_36 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 10:
-        c.execute("UPDATE produtos SET q_38 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 11:
-        c.execute("UPDATE produtos SET q_40 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 12:
-        c.execute("UPDATE produtos SET q_42 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 13:
-        c.execute("UPDATE produtos SET q_44 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
-    elif tam == 14:
-        c.execute("UPDATE produtos SET q_46 = ?, q_t = ? WHERE cdb = ?",
-                  (qt, q_t, cdb))
+    # if op == 4:
+    # c.execute("UPDATE produtos SET q_u = ?, q_t = ? WHERE cdb = ?",
+    # (qt, q_t, cdb))
+
+    if op == 1:
+        c.execute("UPDATE produtos SET q_t = ?, q_36 = ?, q_38 = ?, q_40 = ?, q_42 = ?, q_44 = ?, q_46 = ?, nome = ?,"
+                  " valor = ? WHERE cdb = ?",
+                  (q_t, q_1, q_2, q_3, q_4, q_5, q_6, descricao, valor, cdb))
+    else:
+        c.execute("UPDATE produtos SET nome = ?, valor = ?, q_t = ?, q_u = ?, q_p = ?, q_m = ?, q_g = ?, q_gg = ?"
+                  " WHERE cdb = ?", (descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, cdb))
 
     con.commit()
     con.close()
@@ -167,24 +152,18 @@ def validacao_tr(cdb, tam, qp=1, op=1):
     return False
 
 
-def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0, q_36=0, q_38=0, q_40=0, q_42=0,
-               q_44=0, q_46=0, op=0, todos=0):
+def pegarvalor(cd, nome=0, valor=0, q_t=0, q_1=0, q_2=0, q_3=0, q_4=0, q_5=0, q_6=0, op=0, todos=0):
     """ Função para pegar um valor x. Para pegar um valor desejado é só especificar
     :param cd: Código de barras
     :param nome: Nome da roupa
     :param valor: Valor da roupa
     :param q_t: Quantidade total
-    :param q_u: Quantidade de Tamanhos único
-    :param q_p: Quantidade de Tamanhos P
-    :param q_m: Quantidade de Tamanhos M
-    :param q_g: Quantidade de Tamanhos G
-    :param q_gg: Quantidade de Tamanhos GG
-    :param q_36: Quantidade de Tamanhos 36
-    :param q_38: Quantidade de Tamanhos 38
-    :param q_40: Quantidade de Tamanhos 40
-    :param q_42: Quantidade de Tamanhos 42
-    :param q_44: Quantidade de Tamanhos 44
-    :param q_46: Quantidade de Tamanhos 46
+    :param q_1: Quantidade de Tamanhos único / Tamanhos 36
+    :param q_2: Quantidade de Tamanhos P / Tamanhos 38
+    :param q_3: Quantidade de Tamanhos M / Tamanhos 40
+    :param q_4: Quantidade de Tamanhos G / Tamanhos 42
+    :param q_5: Quantidade de Tamanhos GG / Tamanhos 44
+    :param q_6: Quantidade de Tamanhos 46
     :param op: Para diferenciar de shorts/bermudas. 1 Short/bermudas, 0 Peças de roupas normais
     :param todos: Para pegar todos os dados
     :return:  Os valores desejados em uma lista. Para pegar o valor no return é só dá um: lista[0]
@@ -193,46 +172,80 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_u=0, q_p=0, q_m=0, q_g=0, q_gg=0, q
     con = sqlite3.connect("dados.db")
     c = con.cursor()
 
-    if todos == 1:
-        nome = valor = q_t = q_u = q_p = q_m = q_g = q_gg = q_36 = q_38 = q_40 = q_42 = q_44 = q_46 = op = 1
-
     dados = []
-    for linha in c.execute("SELECT * FROM produtos"):
-        if cd == linha[0]:
-            if nome == 1:
+
+    if todos == 1:
+        # nome = valor = q_t = q_1 = q_2 = q_3 = q_4 = q_5 = q_6 = op = 1
+        for linha in c.execute("SELECT * FROM produtos"):
+            if cd == linha[0]:
                 dados.append(linha[1])
-            if valor == 1:
                 dados.append(linha[2])
-            if q_t == 1:
                 dados.append(linha[3])
-            if q_u == 1:
                 dados.append(linha[4])
-            if q_p == 1:
                 dados.append(linha[5])
-            if q_m == 1:
                 dados.append(linha[6])
-            if q_g == 1:
                 dados.append(linha[7])
-            if q_gg == 1:
                 dados.append(linha[8])
-            if q_36 == 1:
                 dados.append(linha[9])
-            if q_38 == 1:
                 dados.append(linha[10])
-            if q_40 == 1:
                 dados.append(linha[11])
-            if q_42 == 1:
                 dados.append(linha[12])
-            if q_44 == 1:
                 dados.append(linha[13])
-            if q_46 == 1:
                 dados.append(linha[14])
-            if op == 1:
                 dados.append(linha[15])
-    return dados
+
+        return dados
+
+    else:
+        for linha in c.execute("SELECT * FROM produtos"):
+            if cd == linha[0]:
+                if nome == 1:
+                    dados.append(linha[1])
+                if valor == 1:
+                    dados.append(linha[2])
+                if q_t == 1:
+                    dados.append(linha[3])
+                if linha[15] == 1:
+                    # q_36
+                    if q_1 == 1:
+                        dados.append(linha[9])
+                    # q_38
+                    if q_2 == 1:
+                        dados.append(linha[10])
+                    # q_40
+                    if q_3 == 1:
+                        dados.append(linha[11])
+                    # q_42
+                    if q_4 == 1:
+                        dados.append(linha[12])
+                    # q_44
+                    if q_5 == 1:
+                        dados.append(linha[13])
+                    # q_44
+                    if q_6 == 1:
+                        dados.append(linha[14])
+                else:
+                    # q_u
+                    if q_1 == 1:
+                        dados.append(linha[4])
+                    # q_p
+                    if q_2 == 1:
+                        dados.append(linha[5])
+                    # q_m
+                    if q_3 == 1:
+                        dados.append(linha[6])
+                    # q_g
+                    if q_4 == 1:
+                        dados.append(linha[7])
+                    # q_gg
+                    if q_5 == 1:
+                        dados.append(linha[8])
+                if op == 1:
+                    dados.append(linha[15])
+        return dados
 
 
-def criatabela():
+def criatabelaprodutos():
     con = sqlite3.connect('dados.db')
     c = con.cursor()
 

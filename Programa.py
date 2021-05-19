@@ -279,6 +279,7 @@ def editar():
     # Função para habilitar as edições de peças
     try:
         int(pro.cdb_add.text())
+        int(pro.cdb.text())
     except ValueError:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras primeiro!')
     else:
@@ -302,8 +303,44 @@ def atualizar():
     q_3 = int(pro.xtamanho3.text())
     q_4 = int(pro.xtamanho4.text())
     q_5 = int(pro.xtamanho5.text())
+    try:
+        q_6 = int(pro.xtamanho6.text())
+    except ValueError:
+        q_6 = 0
+    q_t = q_1 + q_2 + q_3 + q_4 + q_5 + q_6
     op = Funções.pegarvalor(cdb, op=1)
-    print(op[0])
+    print(op)
+    # ou -> op = pro.tipotamanho.currentIndex()
+    antigo = Funções.pegarvalor(cdb, todos=1)
+    if antigo[-1] == 1:
+        del antigo[3:8]
+        novo = [descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, q_6, op[0]]
+    else:
+        del antigo[8:14]
+        novo = [descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, op[0]]
+    print(novo)
+    print(antigo)
+    cont = []
+    y = {'Descrição': 5, 'Valor': 0}
+    print('y aqui ->', y['Descrição'])
+    for x in range(0, 9):
+        if novo[x] != antigo[x]:
+            if x == 0:
+                cont.append(f'Descrição mudou de {antigo[x]} para {novo[x]}. ')
+            print('diferente')
+            cont.append((antigo[x], '->', novo[x]))
+        print(x)
+    print(cont)
+    # Funções.remocaoeadicao(cdb, op, q_t, q_1, q_2, q_3, q_4, q_5, q_6, descricao, valor)
+    # if op[0] == 0:
+    #     Funções.adicionarhistorico(cdb, descricao,
+    #                                f'{q_1} Tamanhos U, {q_2} Tamanhos P, {q_3} Tamanhos M, {q_4} Tamanhos G, '
+    #                                f'{q_5} Tamanhos GG', 'Mudança', 0)
+    # else:
+    #     Funções.adicionarhistorico(cdb, descricao,
+    #                                f'{q_1} Tamanhos 36, {q_2} Tamanhos 38, {q_3} Tamanhos 40, {q_4} Tamanhos 42, '
+    #                                f'{q_5} Tamanhos 44, {q_6} Tamanhos 46', 'Mudança', 0)
+    QtWidgets.QMessageBox.about(pro, 'Sucesso', 'Peça editada com sucesso')
 
 
 def mudoucombobox():

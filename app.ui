@@ -71,6 +71,7 @@ background-color: rgb(130, 255, 84);</string>
       </property>
       <property name="font">
        <font>
+        <family>Comic Sans MS</family>
         <pointsize>11</pointsize>
         <weight>75</weight>
         <bold>true</bold>
@@ -733,6 +734,11 @@ color: rgb(255, 255, 255);
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 253, 130);</string>
       </property>
@@ -754,6 +760,8 @@ color: rgb(255, 255, 255);
       </property>
       <property name="font">
        <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
         <weight>50</weight>
         <bold>false</bold>
        </font>
@@ -779,6 +787,7 @@ color: rgb(255, 255, 255);
       </property>
       <property name="font">
        <font>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -823,8 +832,7 @@ color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-</string>
+       <string notr="true"/>
       </property>
       <property name="sizeAdjustPolicy">
        <enum>QAbstractScrollArea::AdjustToContents</enum>
