@@ -5,14 +5,38 @@ import uic2
 
 
 def excluir():
+    from PyQt5.QtWidgets import QMessageBox
     try:
         int(pro.cdb_add.text())
-        int(pro.cdb.text())
+        cdb = int(pro.cdb.text())
     except ValueError:
-        QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras primeiro!')
+        QMessageBox.about(pro, 'Erro', 'Insira um código de barras primeiro!')
     else:
         pass
-        msg = QtWidgets.QMessageBox()
+        descricao = pro.descricao.text()
+        msg = QMessageBox()
+        msg.setWindowTitle('Excluir')
+        msg.setText(f'Você tem certeza que deseja excluir "{descricao}"?')
+        msg.setIcon(QMessageBox.Question)
+        msg.setInformativeText('Yes para confirmar e excluir, Cancel para cancelar')
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
+        msg.setDefaultButton(QMessageBox.Cancel)
+
+        x = msg.exec_()
+        if x == QMessageBox.Yes:
+            # Se o usuário pressionar o botão 'Yes'
+            if Funções.validacao_cdb(cdb):
+                Funções.deletar(cdb)
+                QMessageBox.about(pro, 'Sucesso', f'{descricao} Apagado com sucesso!')
+                Funções.adicionarhistorico(cdb, descricao, f'{descricao} Excluída', 'Excluiu')
+            else:
+                QMessageBox.about(pro, 'Ops', 'Tem certeza que existe esse banco de dados?')
+
+        elif x == QMessageBox.Cancel:
+            # Se o usuário pressionar o botão 'Cancel'
+            print('Cancelado')
+        else:
+            print('Nenhum dos dois ué')
 
 
 def habilitar(op):
@@ -216,9 +240,6 @@ def pesquisar():
         return 'a'
     else:
         pass
-    x = QtWidgets.QMessageBox()
-    x.setIcon(QtWidgets.QMessageBox.Question)
-    x.exec_()
 
     validacao = Funções.validacao_cdb(cdb)
     if validacao:
@@ -334,6 +355,7 @@ pro.tamanho6.hide()
 pro.xtamanho6.hide()
 pro.atualizar.hide()
 pro.cadastrar.hide()
+# pro.excluir.setEnabled(False)
 # pro.comboBox.setCurrentIndex(1)
 
 # Colunas

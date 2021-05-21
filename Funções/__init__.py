@@ -324,3 +324,17 @@ def transformatam(ob, op=0):
             return 13
         elif ob == 46:
             return 14
+
+
+def deletar(cdb):
+    """
+    Função para deletar algo do banco de dados usando o código de barras
+    :param cdb: Código de barras
+    """
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    c.execute("""DELETE FROM produtos WHERE cdb = ?""", (cdb,))
+
+    con.commit()
+    con.close()

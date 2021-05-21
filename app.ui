@@ -17,7 +17,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(244, 114, 99);</string>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -737,6 +737,8 @@ color: rgb(255, 255, 255);
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -1158,7 +1160,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: #2FDAC6;</string>
     </property>
     <property name="text">
      <string>Compras </string>
@@ -1197,7 +1199,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: rgb(47, 218, 198);</string>
     </property>
     <property name="text">
      <string>Clientes </string>
@@ -1236,7 +1238,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: #2FDAC6;</string>
     </property>
     <property name="text">
      <string>Estoque </string>
@@ -1287,7 +1289,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: #2FDAC6;</string>
     </property>
     <property name="text">
      <string> Ver historico </string>
@@ -1326,7 +1328,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: #2FDAC6;</string>
     </property>
     <property name="text">
      <string>????</string>
@@ -1356,6 +1358,8 @@ background-color: rgb(176, 205, 211);
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="mouseTracking">
@@ -1368,7 +1372,7 @@ background-color: rgb(176, 205, 211);
      <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(53, 220, 103);</string>
+     <string notr="true">background-color: #2FDAC6;</string>
     </property>
     <property name="text">
      <string>Editar peças </string>
