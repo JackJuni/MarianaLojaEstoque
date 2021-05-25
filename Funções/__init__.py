@@ -338,3 +338,20 @@ def deletar(cdb):
 
     con.commit()
     con.close()
+
+
+def pegartodos(cdb=0, nome=0):
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    lista = []
+    if cdb == 1:
+        for linha in c.execute("SELECT * FROM produtos"):
+            lista.append(linha[0])
+
+    elif nome == 1:
+        for linha in c.execute("SELECT * FROM produtos"):
+            lista.append(linha[1])
+
+    con.close()
+    return lista

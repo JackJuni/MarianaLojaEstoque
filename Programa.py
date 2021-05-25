@@ -4,6 +4,26 @@ from PyQt5.QtGui import QIntValidator, QDoubleValidator
 import uic2
 
 
+def filtrar():
+    # pro.verestoquetabela.
+    if pro.cdbradio.isChecked():
+        try:
+            id = int(pro.identificador.text())
+        except ValueError:
+            QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
+        else:
+            pass
+            dados = Funções.pegartodos(cdb=1)
+            for c in range(0, len(dados)):
+                # if id in dados[c]: -> Não funciona pois é um número inteiro
+                print(f'Tem aqui no {dados[c]} este é o id -> {id}')
+
+            print(dados)
+    elif pro.nomeradio.isChecked():
+        id = pro.identificador.text()
+        print(id)
+
+
 def excluir():
     from PyQt5.QtWidgets import QMessageBox
     try:
@@ -359,12 +379,30 @@ pro.cadastrar.hide()
 # pro.comboBox.setCurrentIndex(1)
 
 # Colunas
+# Tabela do histórico
 pro.verhistoricotabela.setColumnWidth(0, 100)
 pro.verhistoricotabela.setColumnWidth(1, 100)
 pro.verhistoricotabela.setColumnWidth(2, 360)
 pro.verhistoricotabela.setColumnWidth(3, 100)
 pro.verhistoricotabela.setColumnWidth(4, 530)
 pro.verhistoricotabela.setColumnWidth(5, 100)
+# Tabela de estoque
+pro.verestoquetabela.setColumnWidth(0, 100)
+pro.verestoquetabela.setColumnWidth(1, 250)
+pro.verestoquetabela.setColumnWidth(2, 30)
+pro.verestoquetabela.setColumnWidth(4, 75)
+pro.verestoquetabela.setColumnWidth(5, 75)
+pro.verestoquetabela.setColumnWidth(6, 75)
+pro.verestoquetabela.setColumnWidth(7, 75)
+pro.verestoquetabela.setColumnWidth(8, 75)
+pro.verestoquetabela.setColumnWidth(9, 75)
+pro.verestoquetabela.setColumnWidth(10, 75)
+pro.verestoquetabela.setColumnWidth(11, 75)
+pro.verestoquetabela.setColumnWidth(12, 75)
+pro.verestoquetabela.setColumnWidth(13, 75)
+pro.verestoquetabela.setColumnWidth(14, 75)
+pro.verestoquetabela.setColumnWidth(15, 50)
+
 
 # Botões
 pro.atualizarestoque.clicked.connect(atualizarestoque)
@@ -375,9 +413,11 @@ pro.cadastrarnovo.clicked.connect(novocadastro)
 pro.cadastrar.clicked.connect(cadastrar)
 pro.atualizar.clicked.connect(atualizar)
 pro.excluir.clicked.connect(excluir)
+pro.buscar.clicked.connect(filtrar)
 
 # Icones
 pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
+pro.buscar.setIcon(QtGui.QIcon('icons/dsds.png'))
 pro.abahistorico.setIcon(QtGui.QIcon('icons/history.png'))
 pro.abaadicionar.setIcon(QtGui.QIcon('icons/add.png'))
 pro.abaestoque.setIcon(QtGui.QIcon('icons/stock.png'))

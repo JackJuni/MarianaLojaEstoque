@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1372</width>
+    <width>1366</width>
     <height>703</height>
    </rect>
   </property>
@@ -127,9 +127,9 @@ background-color: rgb(130, 255, 84);</string>
      <widget class="QTableWidget" name="verestoquetabela_2">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>20</x>
         <y>50</y>
-        <width>1281</width>
+        <width>1331</width>
         <height>71</height>
        </rect>
       </property>
@@ -944,9 +944,9 @@ color: rgb(255, 255, 255);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>80</y>
         <width>1351</width>
-        <height>461</height>
+        <height>401</height>
        </rect>
       </property>
       <property name="cursor" stdset="0">
@@ -956,7 +956,7 @@ color: rgb(255, 255, 255);</string>
        <string/>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(228, 249, 255);</string>
+       <string notr="true">background-color: #2FDAC6;</string>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -1069,13 +1069,104 @@ color: rgb(255, 255, 255);</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(228, 249, 255);
-background-color: rgb(176, 205, 211);
+       <string notr="true">background-color: #2D3047;
+color: rgb(255, 255, 255);
 </string>
       </property>
       <property name="text">
-       <string>Atualizar</string>
+       <string>Ver todos</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="identificador">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>50</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>120</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="title">
+       <string>Filtrar por:</string>
+      </property>
+      <widget class="QRadioButton" name="cdbradio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>15</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Código de barras</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="nomeradio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>35</y>
+         <width>82</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nome</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="buscar">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>50</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Filtrar </string>
       </property>
      </widget>
     </widget>
@@ -1133,11 +1224,11 @@ background-color: rgb(176, 205, 211);
       </property>
      </widget>
     </widget>
-    <zorder>frameverhistorico</zorder>
-    <zorder>frameverestoque</zorder>
     <zorder>frameclientes</zorder>
     <zorder>framecompras</zorder>
     <zorder>frameadicionarpecas</zorder>
+    <zorder>frameverhistorico</zorder>
+    <zorder>frameverestoque</zorder>
    </widget>
    <widget class="QPushButton" name="abacompras">
     <property name="geometry">
