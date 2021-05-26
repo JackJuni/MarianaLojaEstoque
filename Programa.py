@@ -15,7 +15,8 @@ def filtrar():
             pass
             dados = Funções.pegartodos(cdb=1)
             for c in range(0, len(dados)):
-                # if id in dados[c]: -> Não funciona pois é um número inteiro
+                if id == dados[c]:
+                    print('Igual')
                 print(f'Tem aqui no {dados[c]} este é o id -> {id}')
 
             print(dados)
