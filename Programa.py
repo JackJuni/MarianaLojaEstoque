@@ -7,22 +7,29 @@ import uic2
 def filtrar():
     # pro.verestoquetabela.
     if pro.cdbradio.isChecked():
-        try:
-            id = int(pro.identificador.text())
-        except ValueError:
-            QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
+        id = str(pro.identificador.text()).strip()
+        # QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
+        # Transformo todos os números inteiros para str, para facilitar na busca de elementos
+        if id == '':
+            QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite algo')
         else:
-            pass
             dados = Funções.pegartodos(cdb=1)
+            dados2 = []
             for c in range(0, len(dados)):
-                if id == dados[c]:
-                    print('Igual')
-                print(f'Tem aqui no {dados[c]} este é o id -> {id}')
+                a = str(dados[c])
+                if id in a:
+                    print(f'Tem aqui no {a} este é o id -> {id}')
+                    dados2.append(a)
+            print(dados, dados2)
+            for c in range(0, len(dados2)):
+                Funções.pegartodos()
 
-            print(dados)
     elif pro.nomeradio.isChecked():
-        id = pro.identificador.text()
+        id = str(pro.identificador.text())
         print(id)
+
+    else:
+        QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
 
 
 def excluir():

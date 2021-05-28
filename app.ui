@@ -1106,11 +1106,16 @@ color: rgb(255, 255, 255);
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>10</y>
-        <width>120</width>
+        <width>131</width>
         <height>61</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
@@ -1121,11 +1126,16 @@ color: rgb(255, 255, 255);
       <widget class="QRadioButton" name="cdbradio">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>15</y>
-         <width>101</width>
+         <width>121</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Código de barras</string>
@@ -1134,11 +1144,16 @@ color: rgb(255, 255, 255);
       <widget class="QRadioButton" name="nomeradio">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>8</x>
          <y>35</y>
          <width>82</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Nome</string>
@@ -1167,6 +1182,19 @@ color: rgb(255, 255, 255);
       </property>
       <property name="text">
        <string>Filtrar </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>30</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Digite aqui</string>
       </property>
      </widget>
     </widget>
