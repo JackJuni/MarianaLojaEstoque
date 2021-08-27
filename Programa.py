@@ -15,14 +15,35 @@ def filtrar():
         else:
             dados = Funções.pegartodos(cdb=1)
             dados2 = []
-            for c in range(0, len(dados)):
-                a = str(dados[c])
-                if id in a:
-                    print(f'Tem aqui no {a} este é o id -> {id}')
-                    dados2.append(a)
-            print(dados, dados2)
-            for c in range(0, len(dados2)):
-                Funções.pegartodos()
+            for c in dados:
+                contador = 0
+                identificador = str(c)
+                # print(c)
+                # Identificando aonde tem
+                if id in identificador:
+                    print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
+                    dados2.append(int(identificador))
+                    Funções.pegarvalor(c, )
+                #   Tem que dar um break aqui, limpar os dados do verestoquetabela, e colocar o identificador
+                contador += 1
+
+                # print(dados, dados2)
+
+            # Inserindo dados na tabela
+            for linha in range(0, len(dados2)):
+
+                pro.verestoquetabela.setRowCount(len(dados2))
+
+                # print(f'Dados2 -> {dados2}, c -> {c}')
+
+                dados = Funções.pegarvalor(cd=dados2[linha], todos=1)
+                dados.insert(0, dados2[linha])
+
+                print(f'Dados -> {dados}')
+
+                for coluna in range(0, 16):
+                    pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(dados[coluna])))
+
 
     elif pro.nomeradio.isChecked():
         id = str(pro.identificador.text())
@@ -326,9 +347,11 @@ def atualizarestoque():
     dados = Funções.verlista()
     pro.verestoquetabela.setRowCount(len(dados))
 
-    for m in range(0, len(dados)):
-        for b in range(0, 16):
-            pro.verestoquetabela.setItem(m, b, QtWidgets.QTableWidgetItem(str(dados[m][b])))
+    print(dados)
+
+    for linha in range(0, len(dados)):
+        for coluna in range(0, 16):
+            pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(dados[linha][coluna])))
 
 
 def abrirestoque():
