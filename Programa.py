@@ -8,46 +8,61 @@ def filtrar():
     # pro.verestoquetabela.
     if pro.cdbradio.isChecked():
         id = str(pro.identificador.text()).strip()
-        # QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
+        # QtWidgets.QMessageBox.about(pro, 'Error', 'Insira um código de barras válido')
         # Transformo todos os números inteiros para str, para facilitar na busca de elementos
         if id == '':
-            QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite algo')
+            QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite algo para pesquisar')
         else:
-            dados = Funções.pegartodos(cdb=1)
-            dados2 = []
-            for c in dados:
-                contador = 0
+            todos_cdb = Funções.pegartodos(cdb=1)
+            cdbs_pesquisados = []
+
+            for c in todos_cdb:
                 identificador = str(c)
-                # print(c)
-                # Identificando aonde tem
+                # Identificando aonde tem e juntando na lista "dados2"
                 if id in identificador:
-                    print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
-                    dados2.append(int(identificador))
+                    # print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
+                    cdbs_pesquisados.append(int(identificador))
                     Funções.pegarvalor(c, )
-                #   Tem que dar um break aqui, limpar os dados do verestoquetabela, e colocar o identificador
-                contador += 1
 
                 # print(dados, dados2)
-
             # Inserindo dados na tabela
-            for linha in range(0, len(dados2)):
+            for linha in range(0, len(cdbs_pesquisados)):
 
-                pro.verestoquetabela.setRowCount(len(dados2))
+                pro.verestoquetabela.setRowCount(len(cdbs_pesquisados))
 
                 # print(f'Dados2 -> {dados2}, c -> {c}')
 
-                dados = Funções.pegarvalor(cd=dados2[linha], todos=1)
-                dados.insert(0, dados2[linha])
+                todos_cdb = Funções.pegarvalor(cd=cdbs_pesquisados[linha], todos=1)
+                todos_cdb.insert(0, cdbs_pesquisados[linha])
 
-                print(f'Dados -> {dados}')
-
+                # print(f'Dados -> {dados}')
                 for coluna in range(0, 16):
-                    pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(dados[coluna])))
+                    pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(todos_cdb[coluna])))
 
+            if not cdbs_pesquisados:
+                QtWidgets.QMessageBox.about(pro, 'Não encontrado', 'O código de barras digitado não foi encontrado')
 
     elif pro.nomeradio.isChecked():
-        id = str(pro.identificador.text())
-        print(id)
+        # nome_pesquisa recebe o valor pesquisado
+        nome_pesquisa = str(pro.identificador.text())
+        print(nome_pesquisa)
+
+        if nome_pesquisa == '':
+            QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite um nome para pesquisar')
+
+        else:
+            todos_nomes = Funções.pegartodos(nome=1)
+            lista_nomes = []
+
+            print(f'todos_nomes -> {todos_nomes}')
+
+            for pesquisa in range(0, len(todos_nomes)):
+                if nome_pesquisa in todos_nomes:
+                    # Se pesquisado um valor que exista na lista, ele irá dar append em todos
+                    lista_nomes.append(todos_nomes[pesquisa])
+
+            print(f'lista_nomes -> {lista_nomes}')
+
 
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
