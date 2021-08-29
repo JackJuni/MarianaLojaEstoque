@@ -22,7 +22,6 @@ def filtrar():
                 if id in identificador:
                     # print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
                     cdbs_pesquisados.append(int(identificador))
-                    Funções.pegarvalor(c, )
 
                 # print(dados, dados2)
             # Inserindo dados na tabela
@@ -56,13 +55,14 @@ def filtrar():
 
             print(f'todos_nomes -> {todos_nomes}')
 
-            for pesquisa in range(0, len(todos_nomes)):
-                if nome_pesquisa in todos_nomes:
+            for pesquisa in todos_nomes:
+                # -< Coloco pesquisa.lower para não dar conflitos na hora de pesquisar. Ex.: "Vestido" != "vestido" >-
+                pesquisa.lower()
+                if nome_pesquisa in pesquisa:
                     # Se pesquisado um valor que exista na lista, ele irá dar append em todos
-                    lista_nomes.append(todos_nomes[pesquisa])
+                    lista_nomes.append(pesquisa)
 
             print(f'lista_nomes -> {lista_nomes}')
-
 
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
