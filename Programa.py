@@ -64,6 +64,9 @@ def filtrar():
 
             print(f'lista_nomes -> {lista_nomes}')
 
+            for linha in range(0, len(lista_nomes)):
+                pass
+
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
 

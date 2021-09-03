@@ -357,7 +357,7 @@ def pegartodos(cdb=0, nome=0):
 
     elif nome == 1:
         for linha in c.execute("SELECT * FROM produtos"):
-            lista.append(linha[1])
+            lista.append([linha[0], linha[1]])
 
     con.close()
     return lista
