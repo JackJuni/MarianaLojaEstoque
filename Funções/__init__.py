@@ -343,8 +343,8 @@ def deletar(cdb):
 def pegartodos(cdb=0, nome=0):
     """
     Função para pegar todos os valores de uma coluna. Temos todos os cdb e todos os nomes
-    :param cdb: Coluna dos Código de barras
-    :param nome: Coluna dos nomes
+    :param cdb: Coluna dos Código de barras, Vai retornar apenas os códigos de barras
+    :param nome: Coluna dos nomes, Vai retornar os códigos de barras seguido com os nomes
     :return: Uma lista com todos os valores da coluna desejada
     """
     con = sqlite3.connect('dados.db')

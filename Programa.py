@@ -37,6 +37,7 @@ def filtrar():
                 # print(f'Dados -> {dados}')
                 for coluna in range(0, 16):
                     pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(todos_cdb[coluna])))
+                    print(f'Linha -> {linha}. Coluna -> {coluna}. Valores -> {todos_cdb}')
 
             if not cdbs_pesquisados:
                 QtWidgets.QMessageBox.about(pro, 'Não encontrado', 'O código de barras digitado não foi encontrado')
@@ -44,28 +45,42 @@ def filtrar():
     elif pro.nomeradio.isChecked():
         # nome_pesquisa recebe o valor pesquisado
         nome_pesquisa = str(pro.identificador.text())
-        print(nome_pesquisa)
+        # print(nome_pesquisa)
 
         if nome_pesquisa == '':
             QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite um nome para pesquisar')
 
         else:
             todos_nomes = Funções.pegartodos(nome=1)
+            # print(todos_nomes)
             lista_nomes = []
 
-            print(f'todos_nomes -> {todos_nomes}')
+            # print(f'todos_nomes -> {todos_nomes}')
 
             for pesquisa in todos_nomes:
                 # -< Coloco pesquisa.lower para não dar conflitos na hora de pesquisar. Ex.: "Vestido" != "vestido" >-
-                pesquisa.lower()
-                if nome_pesquisa in pesquisa:
+
+                print(pesquisa[1])
+
+                if nome_pesquisa in pesquisa[1]:
                     # Se pesquisado um valor que exista na lista, ele irá dar append em todos
                     lista_nomes.append(pesquisa)
 
             print(f'lista_nomes -> {lista_nomes}')
 
             for linha in range(0, len(lista_nomes)):
-                pass
+                # Ex-> lista_nomes[linha][0] -> cdb
+                # Vai pegar o valor do cdb em cada repetição e irá pegar os dados para colocar nas tabelas
+
+                valores = Funções.pegarvalor(lista_nomes[linha][0], todos=1)
+                valores.insert(0, lista_nomes[linha][0])
+
+                # print(valores)
+
+                for coluna in range(0, 16):
+                    pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(valores[coluna])))
+                    print(f'Linha -> {linha}. Coluna -> {coluna}. Valores -> {valores}')
+
 
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
