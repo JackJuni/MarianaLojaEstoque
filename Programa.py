@@ -3,6 +3,9 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 import uic2
 
+# Legendas
+# cdb -> código de barras
+
 
 def filtrar():
     # pro.verestoquetabela.
@@ -23,21 +26,16 @@ def filtrar():
                     # print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
                     cdbs_pesquisados.append(int(identificador))
 
-                # print(dados, dados2)
             # Inserindo dados na tabela
             for linha in range(0, len(cdbs_pesquisados)):
 
                 pro.verestoquetabela.setRowCount(len(cdbs_pesquisados))
 
-                # print(f'Dados2 -> {dados2}, c -> {c}')
-
                 todos_cdb = Funções.pegarvalor(cd=cdbs_pesquisados[linha], todos=1)
                 todos_cdb.insert(0, cdbs_pesquisados[linha])
 
-                # print(f'Dados -> {dados}')
                 for coluna in range(0, 16):
                     pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(todos_cdb[coluna])))
-                    print(f'Linha -> {linha}. Coluna -> {coluna}. Valores -> {todos_cdb}')
 
             if not cdbs_pesquisados:
                 QtWidgets.QMessageBox.about(pro, 'Não encontrado', 'O código de barras digitado não foi encontrado')
@@ -45,41 +43,31 @@ def filtrar():
     elif pro.nomeradio.isChecked():
         # nome_pesquisa recebe o valor pesquisado
         nome_pesquisa = str(pro.identificador.text())
-        # print(nome_pesquisa)
 
         if nome_pesquisa == '':
             QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite um nome para pesquisar')
 
         else:
             todos_nomes = Funções.pegartodos(nome=1)
-            # print(todos_nomes)
             lista_nomes = []
-
-            # print(f'todos_nomes -> {todos_nomes}')
 
             for pesquisa in todos_nomes:
                 # -< Coloco pesquisa.lower para não dar conflitos na hora de pesquisar. Ex.: "Vestido" != "vestido" >-
-
-                print(pesquisa[1])
 
                 if nome_pesquisa in pesquisa[1]:
                     # Se pesquisado um valor que exista na lista, ele irá dar append em todos
                     lista_nomes.append(pesquisa)
 
-            print(f'lista_nomes -> {lista_nomes}')
-
             for linha in range(0, len(lista_nomes)):
-                # Ex-> lista_nomes[linha][0] -> cdb
+                # Ex-> lista_nomes[linha][0] -> código de barras
                 # Vai pegar o valor do cdb em cada repetição e irá pegar os dados para colocar nas tabelas
+                pro.verestoquetabela.setRowCount(len(lista_nomes))
 
                 valores = Funções.pegarvalor(lista_nomes[linha][0], todos=1)
                 valores.insert(0, lista_nomes[linha][0])
 
-                # print(valores) aaaa
-
                 for coluna in range(0, 16):
                     pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(valores[coluna])))
-                    print(f'Linha -> {linha}. Coluna -> {coluna}. Valores -> {valores}')
 
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
@@ -378,8 +366,6 @@ def atualizarestoque():
     # Lê os dados do banco de dados e mostra no "Ver Estoque"
     dados = Funções.verlista()
     pro.verestoquetabela.setRowCount(len(dados))
-
-    print(dados)
 
     for linha in range(0, len(dados)):
         for coluna in range(0, 16):

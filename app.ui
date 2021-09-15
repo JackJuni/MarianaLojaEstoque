@@ -1238,8 +1238,8 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="pushButton_3">
       <property name="geometry">
        <rect>
-        <x>620</x>
-        <y>200</y>
+        <x>950</x>
+        <y>460</y>
         <width>151</width>
         <height>51</height>
        </rect>
@@ -1251,12 +1251,47 @@ color: rgb(255, 255, 255);
        <string>Fazer compra</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>70</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Adicionar</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>70</y>
+        <width>251</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(238, 238, 236);
+background-color: rgb(238, 238, 236);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>50</y>
+        <width>181</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Digite o código de barras:</string>
+      </property>
+     </widget>
     </widget>
-    <zorder>frameclientes</zorder>
-    <zorder>framecompras</zorder>
-    <zorder>frameadicionarpecas</zorder>
-    <zorder>frameverhistorico</zorder>
-    <zorder>frameverestoque</zorder>
    </widget>
    <widget class="QPushButton" name="abacompras">
     <property name="geometry">
