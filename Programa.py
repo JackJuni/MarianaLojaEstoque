@@ -75,12 +75,11 @@ def filtrar():
                 valores = Funções.pegarvalor(lista_nomes[linha][0], todos=1)
                 valores.insert(0, lista_nomes[linha][0])
 
-                # print(valores)
+                # print(valores) aaaa
 
                 for coluna in range(0, 16):
                     pro.verestoquetabela.setItem(linha, coluna, QtWidgets.QTableWidgetItem(str(valores[coluna])))
                     print(f'Linha -> {linha}. Coluna -> {coluna}. Valores -> {valores}')
-
 
     else:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Selecione um filtro')
