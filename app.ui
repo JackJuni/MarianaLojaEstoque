@@ -1274,8 +1274,7 @@ color: rgb(255, 255, 255);
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(238, 238, 236);
-background-color: rgb(238, 238, 236);</string>
+       <string notr="true">background-color: #F7FFF7;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
@@ -1290,6 +1289,58 @@ background-color: rgb(238, 238, 236);</string>
       <property name="text">
        <string>Digite o código de barras:</string>
       </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>110</y>
+        <width>431</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #F7FFF7;</string>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>143</number>
+      </attribute>
+      <attribute name="verticalHeaderMinimumSectionSize">
+       <number>21</number>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>31</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Código de barras</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Descrição</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Preço</string>
+       </property>
+      </column>
      </widget>
     </widget>
    </widget>
