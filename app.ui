@@ -805,6 +805,33 @@ color: rgb(255, 255, 255);</string>
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>140</y>
+        <width>321</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Comic Sans MS</family>
+        <pointsize>26</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+        <underline>true</underline>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Aba de Edição</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QFrame" name="frameverhistorico">
      <property name="geometry">
@@ -1238,14 +1265,14 @@ color: rgb(255, 255, 255);
      <widget class="QPushButton" name="pushButton_3">
       <property name="geometry">
        <rect>
-        <x>950</x>
-        <y>460</y>
+        <x>170</x>
+        <y>530</y>
         <width>151</width>
         <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 255, 0);</string>
+       <string notr="true">background-color: #ffe66d;</string>
       </property>
       <property name="text">
        <string>Fazer compra</string>
@@ -1259,6 +1286,9 @@ color: rgb(255, 255, 255);
         <width>89</width>
         <height>25</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #ffe66d;</string>
       </property>
       <property name="text">
        <string>Adicionar</string>
@@ -1295,7 +1325,7 @@ color: rgb(255, 255, 255);
        <rect>
         <x>90</x>
         <y>110</y>
-        <width>431</width>
+        <width>671</width>
         <height>411</height>
        </rect>
       </property>
@@ -1318,7 +1348,7 @@ color: rgb(255, 255, 255);
        <string notr="true">background-color: #F7FFF7;</string>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>143</number>
+       <number>167</number>
       </attribute>
       <attribute name="verticalHeaderMinimumSectionSize">
        <number>21</number>
@@ -1341,6 +1371,44 @@ color: rgb(255, 255, 255);
         <string>Preço</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Quantidade e tamanhos</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>530</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #ff6b6b;
+color: rgb(255, 255, 254);</string>
+      </property>
+      <property name="text">
+       <string>Excluir Linha</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>530</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #ffe66d;</string>
+      </property>
+      <property name="text">
+       <string>Modificar</string>
+      </property>
      </widget>
     </widget>
    </widget>

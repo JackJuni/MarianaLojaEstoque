@@ -366,6 +366,7 @@ def atualizarestoque():
     # Lê os dados do banco de dados e mostra no "Ver Estoque"
     dados = Funções.verlista()
     pro.verestoquetabela.setRowCount(len(dados))
+    print(pro.verestoquetabela.currentRow())
 
     for linha in range(0, len(dados)):
         for coluna in range(0, 16):
