@@ -7,6 +7,10 @@ import uic2
 # cdb -> código de barras
 
 
+def adicionar_produto():
+    print()
+
+
 def filtrar():
     # pro.verestoquetabela.
     if pro.cdbradio.isChecked():
@@ -464,6 +468,7 @@ pro.cadastrar.clicked.connect(cadastrar)
 pro.atualizar.clicked.connect(atualizar)
 pro.excluir.clicked.connect(excluir)
 pro.buscar.clicked.connect(filtrar)
+pro.adicionar_produto.clicked.connect(adicionar_produto)
 
 # Icones
 pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
