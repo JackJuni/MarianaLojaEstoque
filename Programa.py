@@ -8,7 +8,19 @@ import uic2
 
 
 def adicionar_produto():
-    print()
+    # Função para colocar os produtos na "lista de compra"
+    try:
+        cdb = int(pro.add_nome_produto.text())
+    except ValueError:
+        QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
+        return ''
+    else:
+        pass
+
+    validacao = Funções.validacao_cdb(cdb)
+    if validacao:
+        dados = Funções.pegarvalor(cdb, todos=1)
+        dados.insert(0, cdb)
 
 
 def filtrar():
@@ -310,7 +322,8 @@ def pesquisar():
         cdb = int(pro.cdb_add.text())
     except ValueError:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
-        return 'a'
+        # Uso o return para ele não fazer o script que se sucede (eu acho kkkkk)
+        return ''
     else:
         pass
 
@@ -370,7 +383,7 @@ def atualizarestoque():
     # Lê os dados do banco de dados e mostra no "Ver Estoque"
     dados = Funções.verlista()
     pro.verestoquetabela.setRowCount(len(dados))
-    print(pro.verestoquetabela.currentRow())
+    # print(pro.verestoquetabela.currentRow())
 
     for linha in range(0, len(dados)):
         for coluna in range(0, 16):
