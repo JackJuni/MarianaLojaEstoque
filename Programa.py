@@ -4,7 +4,21 @@ from PyQt5.QtGui import QIntValidator, QDoubleValidator
 import uic2
 
 # Legendas
-# cdb -> código de barras
+# cdb -> Código de barras
+# q_t -> Quantidade total
+# q_u -> Quantidade de tamanhos único
+# q_p -> Quantidade de tamanhos P
+# q_m -> Quantidade de tamanhos M
+# q_g -> Quantidade de tamanhos G
+# q_gg -> Quantidade de tamanhos GG
+# q_36 -> Quantidade de tamanhos 36
+# q_38 -> Quantidade de tamanhos 38
+# q_40 -> Quantidade de tamanhos 40
+# q_42 -> Quantidade de tamanhos 42
+# q_44 -> Quantidade de tamanhos 44
+# q_46 -> Quantidade de tamanhos 46
+# op -> Diferencia os tamanhos. Se receber 0 possui os tamanhos: u, p, m, g e gg
+# -> Se receber 1 possui os tamanhos: 36, 38, 40, 42, 44 e 46
 
 
 def adicionar_produto():
@@ -21,15 +35,54 @@ def adicionar_produto():
     if validacao:
         dados = Funções.pegarvalor(cdb, todos=1)
         dados.insert(0, cdb)
+        pro.framequantidade.show()
+
+    #   Aqui ele vai se ajustar aos tipos de tamanho do produto
+        if dados[-1] == 0:
+            localizador = 4
+            pro.lztamanho46.hide()
+            pro.ztamanho46.hide()
+            pro.lztamanho36.setText('Tamanho U')
+            pro.lztamanho38.setText('Tamanho P')
+            pro.lztamanho40.setText('Tamanho M')
+            pro.lztamanho42.setText('Tamanho G')
+            pro.lztamanho44.setText('Tamanho GG')
+        else:
+            localizador = 9
+            pro.lztamanho36.setText('Tamanho 36')
+            pro.lztamanho38.setText('Tamanho 38')
+            pro.lztamanho40.setText('Tamanho 40')
+            pro.lztamanho42.setText('Tamanho 42')
+            pro.lztamanho44.setText('Tamanho 44')
+            pro.lztamanho46.show()
+            pro.ztamanho46.show()
+
+        contador = 36
+        for checagem in range(0, 6):
+            if checagem == 5 and dados[-1] == 0:
+                break
+
+            if dados[-1] == 0:
+                if dados[localizador] == 0:
+                    x = f'ztamanho{contador}'
+                    print(contador, x)
+
+            else:
+                print(dados[localizador])
+            localizador += 1
+            contador += 2
+
+    else:
+        QtWidgets.QMessageBox.about(pro, 'Erro', 'O código de barras digitado não é válido')
 
 
 def filtrar():
-    # pro.verestoquetabela.
+    # pro.verestoquetabela
     if pro.cdbradio.isChecked():
-        id = str(pro.identificador.text()).strip()
+        cdb = str(pro.identificador.text()).strip()
         # QtWidgets.QMessageBox.about(pro, 'Error', 'Insira um código de barras válido')
         # Transformo todos os números inteiros para str, para facilitar na busca de elementos
-        if id == '':
+        if cdb == '':
             QtWidgets.QMessageBox.about(pro, 'Erro', 'Digite algo para pesquisar')
         else:
             todos_cdb = Funções.pegartodos(cdb=1)
@@ -38,7 +91,7 @@ def filtrar():
             for c in todos_cdb:
                 identificador = str(c)
                 # Identificando aonde tem e juntando na lista "dados2"
-                if id in identificador:
+                if cdb in identificador:
                     # print(f'Tem aqui no \033[0;34m{identificador}\033[0;m este é o id -> \033[0;32m{id}\033[m')
                     cdbs_pesquisados.append(int(identificador))
 
@@ -442,6 +495,7 @@ pro.tamanho6.hide()
 pro.xtamanho6.hide()
 pro.atualizar.hide()
 pro.cadastrar.hide()
+pro.framequantidade.close()
 # pro.excluir.setEnabled(False)
 # pro.comboBox.setCurrentIndex(1)
 
