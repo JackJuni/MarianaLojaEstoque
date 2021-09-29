@@ -1,4 +1,4 @@
-# Programa para a loja MarianaLemosStore.
+# Sistema de controle de estoque.
 ### Um controle de estoque para:
 
 - Cadastrar novas roupas, com código de barras
