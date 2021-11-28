@@ -21,6 +21,28 @@ import uic2
 # -> Se receber 1 possui os tamanhos: 36, 38, 40, 42, 44 e 46
 
 
+def cancelar_selecionar():
+    # Cancela a adição da roupa
+    pro.ztamanho1.clear()
+    pro.ztamanho2.clear()
+    pro.ztamanho3.clear()
+    pro.ztamanho4.clear()
+    pro.ztamanho5.clear()
+    pro.ztamanho6.clear()
+    pro.framequantidade.hide()
+    pro.add_nome_produto.setEnabled(True)
+    pro.add_nome_produto.clear()
+
+
+def selecionar_tamanhos():
+    try:
+        int(pro.ztamanho1)
+    except ValueError:
+        QtWidgets.QMessageBox.about(pro, 'Erro', 'Algo deu errado :/')
+    else:
+        pro.add_nome_produto.setEnabled(True)
+
+
 def adicionar_produto():
     # Função para colocar os produtos na "lista de compra"
     try:
@@ -31,6 +53,7 @@ def adicionar_produto():
     else:
         pass
 
+    pro.add_nome_produto.setEnabled(False)
     validacao = Funções.validacao_cdb(cdb)
     if validacao:
         dados = Funções.pegarvalor(cdb, todos=1)
@@ -40,22 +63,22 @@ def adicionar_produto():
     #   Aqui ele vai se ajustar aos tipos de tamanho do produto
         if dados[-1] == 0:
             localizador = 4
-            pro.lztamanho46.hide()
-            pro.ztamanho46.hide()
-            pro.lztamanho36.setText('Tamanho U')
-            pro.lztamanho38.setText('Tamanho P')
-            pro.lztamanho40.setText('Tamanho M')
-            pro.lztamanho42.setText('Tamanho G')
-            pro.lztamanho44.setText('Tamanho GG')
+            pro.lztamanho6.hide()
+            pro.ztamanho6.hide()
+            pro.lztamanho1.setText('Tamanho U')
+            pro.lztamanho2.setText('Tamanho P')
+            pro.lztamanho3.setText('Tamanho M')
+            pro.lztamanho4.setText('Tamanho G')
+            pro.lztamanho5.setText('Tamanho GG')
         else:
             localizador = 9
-            pro.lztamanho36.setText('Tamanho 36')
-            pro.lztamanho38.setText('Tamanho 38')
-            pro.lztamanho40.setText('Tamanho 40')
-            pro.lztamanho42.setText('Tamanho 42')
-            pro.lztamanho44.setText('Tamanho 44')
-            pro.lztamanho46.show()
-            pro.ztamanho46.show()
+            pro.lztamanho1.setText('Tamanho 36')
+            pro.lztamanho2.setText('Tamanho 38')
+            pro.lztamanho3.setText('Tamanho 40')
+            pro.lztamanho4.setText('Tamanho 42')
+            pro.lztamanho5.setText('Tamanho 44')
+            pro.lztamanho6.show()
+            pro.ztamanho6.show()
 
         contador = 36
         for checagem in range(0, 6):
@@ -496,6 +519,12 @@ pro.xtamanho6.hide()
 pro.atualizar.hide()
 pro.cadastrar.hide()
 pro.framequantidade.close()
+pro.ztamanho1.setValidator(QIntValidator())
+pro.ztamanho2.setValidator(QIntValidator())
+pro.ztamanho3.setValidator(QIntValidator())
+pro.ztamanho4.setValidator(QIntValidator())
+pro.ztamanho5.setValidator(QIntValidator())
+pro.ztamanho6.setValidator(QIntValidator())
 # pro.excluir.setEnabled(False)
 # pro.comboBox.setCurrentIndex(1)
 
@@ -536,6 +565,8 @@ pro.atualizar.clicked.connect(atualizar)
 pro.excluir.clicked.connect(excluir)
 pro.buscar.clicked.connect(filtrar)
 pro.adicionar_produto.clicked.connect(adicionar_produto)
+pro.selecionar_tamanhos.clicked.connect(selecionar_tamanhos)
+pro.cancelar_selecionar.clicked.connect(cancelar_selecionar)
 
 # Icones
 pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
