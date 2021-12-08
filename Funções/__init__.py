@@ -128,12 +128,13 @@ def validacao_cdb(cdb):
     return False
 
 
-def validacao_tr(cdb, tam, qp=1, op=1):
+def validacao_tirar(cdb, tam, qp=1, op=1, todos=0):
     """ Validação da função: tirar roupa. Tem o próposito de validação da quantiade de roupas do tamanho x
     :param tam: Tamanho da roupa
     :param qp: Quantidade de roupas a ser retirado. Como foi adicionado a "op" coloquei o qp também como =1
     :param cdb: Código de barras
     :param op: Apenas uma forma que achei para incluir a função na funcionalidade: adicionar quantidade de roupa
+    :param todos: Um adicional ao
     :return: Return True se possuir, False se não possuir.
     """
 

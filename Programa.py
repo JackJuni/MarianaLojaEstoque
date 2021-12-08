@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtGui import QIntValidator, QDoubleValidator
 import uic2
 
+
 # Legendas
 # cdb -> Código de barras
 # q_t -> Quantidade total
@@ -23,12 +24,12 @@ import uic2
 
 def cancelar_selecionar():
     # Cancela a adição da roupa
-    pro.ztamanho1.clear()
-    pro.ztamanho2.clear()
-    pro.ztamanho3.clear()
-    pro.ztamanho4.clear()
-    pro.ztamanho5.clear()
-    pro.ztamanho6.clear()
+    pro.ztamanho1.setValue(0)
+    pro.ztamanho2.setValue(0)
+    pro.ztamanho3.setValue(0)
+    pro.ztamanho4.setValue(0)
+    pro.ztamanho5.setValue(0)
+    pro.ztamanho6.setValue(0)
     pro.framequantidade.hide()
     pro.add_nome_produto.setEnabled(True)
     pro.add_nome_produto.clear()
@@ -36,67 +37,112 @@ def cancelar_selecionar():
 
 def selecionar_tamanhos():
     try:
-        int(pro.ztamanho1)
+        int(pro.ztamanho1.text())
     except ValueError:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Algo deu errado :/')
     else:
-        pro.add_nome_produto.setEnabled(True)
+        cdb = int(pro.add_nome_produto.text())
+        dados = Funções.pegarvalor(cdb, todos=1)
+
+        if dados[-1] == 0:
+            tamanhos = {'Tamanhos U': int(pro.ztamanho1.text()), 'Tamanhos P': int(pro.ztamanho2.text()),
+                        'Tamanhos M': int(pro.ztamanho3.text()), 'Tamanhos G': int(pro.ztamanho4.text()),
+                        'Tamanhos GG': int(pro.ztamanho5.text())}
+        else:
+            tamanhos = {'Tamanhos 36': int(pro.ztamanho1.text()), 'Tamanhos 38': int(pro.ztamanho2.text()),
+                        'Tamanhos 40': int(pro.ztamanho3.text()), 'Tamanhos 42': int(pro.ztamanho4.text()),
+                        'Tamanhos 44': int(pro.ztamanho5.text()), 'Tamanhos 46': int(pro.ztamanho6.text())}
+
+        lista_tamanhos = ''
+        validador = False
+        # Contador de tamanhos para multiplicar pelo preço
+        contador_tamanhos = 0
+
+        for c in tamanhos.items():
+            # Se o programa achar algum valor diferente de 0 spinbox's do frame selecionar_tamanho,-
+            # -ele joga em uma lista
+            if c[1] != 0:
+                lista_tamanhos += f'{c[0]} {c[1]} '
+                validador = True
+                contador_tamanhos += 1
+
+        if validador:
+            linhas = pro.compra_tabela.rowCount()
+            pro.compra_tabela.setRowCount(linhas+1)
+            lista = [cdb, dados[0], dados[1] * contador_tamanhos, lista_tamanhos]
+            print(linhas)
+            for coluna in range(0, 4):
+                pro.compra_tabela.setItem(linhas, coluna, QtWidgets.QTableWidgetItem(str(lista[coluna])))
+
+            pro.add_nome_produto.setEnabled(True)
+            cancelar_selecionar()
+
+        else:
+            QtWidgets.QMessageBox.about(pro, 'Algo deu errado', 'Nenhum dos valores foi alterado')
 
 
 def adicionar_produto():
-    # Função para colocar os produtos na "lista de compra"
+    # Função para selecionar um produto e levar ele para a aba de selecionar tamanhos
     try:
         cdb = int(pro.add_nome_produto.text())
     except ValueError:
         QtWidgets.QMessageBox.about(pro, 'Erro', 'Insira um código de barras válido')
         return ''
     else:
-        pass
 
-    pro.add_nome_produto.setEnabled(False)
-    validacao = Funções.validacao_cdb(cdb)
-    if validacao:
-        dados = Funções.pegarvalor(cdb, todos=1)
-        dados.insert(0, cdb)
-        pro.framequantidade.show()
+        pro.add_nome_produto.setEnabled(False)
+        validacao = Funções.validacao_cdb(cdb)
+        if validacao:
+            dados = Funções.pegarvalor(cdb, todos=1)
 
-    #   Aqui ele vai se ajustar aos tipos de tamanho do produto
-        if dados[-1] == 0:
-            localizador = 4
-            pro.lztamanho6.hide()
-            pro.ztamanho6.hide()
-            pro.lztamanho1.setText('Tamanho U')
-            pro.lztamanho2.setText('Tamanho P')
-            pro.lztamanho3.setText('Tamanho M')
-            pro.lztamanho4.setText('Tamanho G')
-            pro.lztamanho5.setText('Tamanho GG')
-        else:
-            localizador = 9
-            pro.lztamanho1.setText('Tamanho 36')
-            pro.lztamanho2.setText('Tamanho 38')
-            pro.lztamanho3.setText('Tamanho 40')
-            pro.lztamanho4.setText('Tamanho 42')
-            pro.lztamanho5.setText('Tamanho 44')
-            pro.lztamanho6.show()
-            pro.ztamanho6.show()
+            dados.insert(0, cdb)
+            pro.framequantidade.show()
 
-        contador = 36
-        for checagem in range(0, 6):
-            if checagem == 5 and dados[-1] == 0:
-                break
-
+            #   Aqui ele vai se ajustar aos tipos de tamanho do produto
             if dados[-1] == 0:
-                if dados[localizador] == 0:
-                    x = f'ztamanho{contador}'
-                    print(contador, x)
+                # Valores máximos do spinbox
+                pro.ztamanho1.setMaximum(dados[4])
+                pro.ztamanho2.setMaximum(dados[5])
+                pro.ztamanho3.setMaximum(dados[6])
+                pro.ztamanho4.setMaximum(dados[7])
+                pro.ztamanho5.setMaximum(dados[8])
 
+                pro.lztamanho6.hide()
+                pro.ztamanho6.hide()
+
+                pro.lztamanho1.setText('Tamanho U')
+                pro.lztamanho2.setText('Tamanho P')
+                pro.lztamanho3.setText('Tamanho M')
+                pro.lztamanho4.setText('Tamanho G')
+                pro.lztamanho5.setText('Tamanho GG')
             else:
-                print(dados[localizador])
-            localizador += 1
-            contador += 2
+                # Valores máximos do spinbox
+                pro.ztamanho1.setMaximum(dados[9])
+                pro.ztamanho2.setMaximum(dados[10])
+                pro.ztamanho3.setMaximum(dados[11])
+                pro.ztamanho4.setMaximum(dados[12])
+                pro.ztamanho5.setMaximum(dados[13])
+                pro.ztamanho6.setMaximum(dados[14])
 
-    else:
-        QtWidgets.QMessageBox.about(pro, 'Erro', 'O código de barras digitado não é válido')
+                pro.lztamanho1.setText('Tamanho 36')
+                pro.lztamanho2.setText('Tamanho 38')
+                pro.lztamanho3.setText('Tamanho 40')
+                pro.lztamanho4.setText('Tamanho 42')
+                pro.lztamanho5.setText('Tamanho 44')
+
+                pro.lztamanho6.show()
+                pro.ztamanho6.show()
+
+            # Setta o valor 0 nos spinboxs para ficar mais bonito
+            pro.ztamanho1.setValue(0)
+            pro.ztamanho2.setValue(0)
+            pro.ztamanho3.setValue(0)
+            pro.ztamanho4.setValue(0)
+            pro.ztamanho5.setValue(0)
+            pro.ztamanho6.setValue(0)
+
+        else:
+            QtWidgets.QMessageBox.about(pro, 'Erro', 'O código de barras digitado não é válido')
 
 
 def filtrar():
@@ -403,46 +449,46 @@ def pesquisar():
     else:
         pass
 
-    validacao = Funções.validacao_cdb(cdb)
-    if validacao:
-        dados = Funções.pegarvalor(cdb, todos=1)
-        dados.insert(0, cdb)
+        validacao = Funções.validacao_cdb(cdb)
+        if validacao:
+            dados = Funções.pegarvalor(cdb, todos=1)
+            dados.insert(0, cdb)
 
-        for y in range(0, 16):
-            pro.verestoquetabela_2.setItem(0, y, QtWidgets.QTableWidgetItem(str(dados[y])))
+            for y in range(0, 16):
+                pro.verestoquetabela_2.setItem(0, y, QtWidgets.QTableWidgetItem(str(dados[y])))
 
-        # Limpa todos os dados passados antes
-        # pro.cdb.clear()
-        # pro.descricao.clear()
-        # pro.valor.clear()
-        limparjanela2()
-        pro.tipotamanho.setCurrentIndex(0)
-        mudoucombobox()
-        habilitar(0)
+            # Limpa todos os dados passados antes
+            # pro.cdb.clear()
+            # pro.descricao.clear()
+            # pro.valor.clear()
+            limparjanela2()
+            pro.tipotamanho.setCurrentIndex(0)
+            mudoucombobox()
+            habilitar(0)
 
-        # Inserindo os dados na janela
-        pro.cdb.insert(str(dados[0]))
-        pro.descricao.insert(dados[1])
-        pro.valor.insert(f'{float(dados[2]+0):.2f}')
-        pro.tipotamanho.setCurrentIndex(dados[15])
+            # Inserindo os dados na janela
+            pro.cdb.insert(str(dados[0]))
+            pro.descricao.insert(dados[1])
+            pro.valor.insert(f'{float(dados[2] + 0):.2f}')
+            pro.tipotamanho.setCurrentIndex(dados[15])
 
-        # mudoucombobox()
-        if dados[15] == 1:
-            pro.xtamanho1.setValue(dados[9])
-            pro.xtamanho2.setValue(dados[10])
-            pro.xtamanho3.setValue(dados[11])
-            pro.xtamanho4.setValue(dados[12])
-            pro.xtamanho5.setValue(dados[13])
-            pro.xtamanho6.setValue(dados[14])
+            # mudoucombobox()
+            if dados[15] == 1:
+                pro.xtamanho1.setValue(dados[9])
+                pro.xtamanho2.setValue(dados[10])
+                pro.xtamanho3.setValue(dados[11])
+                pro.xtamanho4.setValue(dados[12])
+                pro.xtamanho5.setValue(dados[13])
+                pro.xtamanho6.setValue(dados[14])
+            else:
+                pro.xtamanho1.setValue(dados[4])
+                pro.xtamanho2.setValue(dados[5])
+                pro.xtamanho3.setValue(dados[6])
+                pro.xtamanho4.setValue(dados[7])
+                pro.xtamanho5.setValue(dados[8])
+
         else:
-            pro.xtamanho1.setValue(dados[4])
-            pro.xtamanho2.setValue(dados[5])
-            pro.xtamanho3.setValue(dados[6])
-            pro.xtamanho4.setValue(dados[7])
-            pro.xtamanho5.setValue(dados[8])
-
-    else:
-        QtWidgets.QMessageBox.about(pro, 'Dados inválidos', 'Os dados inseridos estão incorretos')
+            QtWidgets.QMessageBox.about(pro, 'Dados inválidos', 'Os dados inseridos estão incorretos')
 
 
 def atualizarhistorico():
@@ -513,18 +559,13 @@ pro = uic2.loadUi('app.ui')
 pro.cdb_add.setValidator(QIntValidator())
 pro.cdb.setValidator(QIntValidator())
 pro.valor.setValidator(QDoubleValidator())
+pro.add_nome_produto.setValidator(QIntValidator())
 pro.tipotamanho.currentIndexChanged.connect(mudoucombobox)
 pro.tamanho6.hide()
 pro.xtamanho6.hide()
 pro.atualizar.hide()
 pro.cadastrar.hide()
 pro.framequantidade.close()
-pro.ztamanho1.setValidator(QIntValidator())
-pro.ztamanho2.setValidator(QIntValidator())
-pro.ztamanho3.setValidator(QIntValidator())
-pro.ztamanho4.setValidator(QIntValidator())
-pro.ztamanho5.setValidator(QIntValidator())
-pro.ztamanho6.setValidator(QIntValidator())
 # pro.excluir.setEnabled(False)
 # pro.comboBox.setCurrentIndex(1)
 
@@ -552,7 +593,6 @@ pro.verestoquetabela.setColumnWidth(12, 75)
 pro.verestoquetabela.setColumnWidth(13, 75)
 pro.verestoquetabela.setColumnWidth(14, 75)
 pro.verestoquetabela.setColumnWidth(15, 50)
-
 
 # Botões
 pro.atualizarestoque.clicked.connect(atualizarestoque)

@@ -1320,7 +1320,7 @@ color: rgb(255, 255, 255);
        <string>Digite o código de barras:</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="compra_tabela">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -1346,6 +1346,15 @@ color: rgb(255, 255, 255);
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: #F7FFF7;</string>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>false</bool>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
        <number>167</number>
@@ -1447,102 +1456,6 @@ color: rgb(255, 255, 254);</string>
        </property>
        <property name="text">
         <string>Digite quantas peças você deseja adicionar</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho1">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>110</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho3">
-       <property name="geometry">
-        <rect>
-         <x>380</x>
-         <y>110</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho5">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>180</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho4">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>180</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho6">
-       <property name="geometry">
-        <rect>
-         <x>380</x>
-         <y>180</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ztamanho2">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>110</y>
-         <width>31</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #f7fff7;</string>
-       </property>
-       <property name="text">
-        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="lztamanho1">
@@ -1673,6 +1586,100 @@ color: rgb(255, 255, 254);</string>
        </property>
        <property name="text">
         <string>Cancelar</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho1">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>110</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho2">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>110</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho3">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>110</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho4">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>180</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho5">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>180</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="ztamanho6">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>180</y>
+         <width>42</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>90</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível</string>
        </property>
       </widget>
      </widget>
