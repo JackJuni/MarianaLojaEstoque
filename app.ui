@@ -1262,7 +1262,7 @@ color: rgb(255, 255, 255);
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="fazer_compra">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -1372,7 +1372,7 @@ color: rgb(255, 255, 255);
       </column>
       <column>
        <property name="text">
-        <string>Descrição</string>
+        <string>Nome</string>
        </property>
       </column>
       <column>
@@ -1382,11 +1382,11 @@ color: rgb(255, 255, 255);
       </column>
       <column>
        <property name="text">
-        <string>Quantidade e tamanhos</string>
+        <string>Quantidades e tamanhos</string>
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="excluir_linha">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -1403,7 +1403,7 @@ color: rgb(255, 255, 254);</string>
        <string>Excluir Linha</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="modificar">
       <property name="geometry">
        <rect>
         <x>340</x>
@@ -1509,9 +1509,9 @@ color: rgb(255, 255, 254);</string>
       <widget class="QLabel" name="lztamanho3">
        <property name="geometry">
         <rect>
-         <x>360</x>
+         <x>370</x>
          <y>80</y>
-         <width>91</width>
+         <width>71</width>
          <height>17</height>
         </rect>
        </property>
@@ -1541,9 +1541,9 @@ color: rgb(255, 255, 254);</string>
       <widget class="QLabel" name="lztamanho6">
        <property name="geometry">
         <rect>
-         <x>360</x>
+         <x>370</x>
          <y>150</y>
-         <width>111</width>
+         <width>71</width>
          <height>17</height>
         </rect>
        </property>
@@ -1679,7 +1679,204 @@ color: rgb(255, 255, 254);</string>
         <string notr="true">color: rgb(254, 253, 237);</string>
        </property>
        <property name="text">
-        <string>Disponível</string>
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>160</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>90</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>90</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>160</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponivel">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>160</y>
+         <width>51</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>Disponível:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_1">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>110</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_2">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>110</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_3">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>110</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_4">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>180</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_5">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>180</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="disponibilidade_6">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>180</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(254, 253, 237);</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>

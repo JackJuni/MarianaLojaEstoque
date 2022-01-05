@@ -4,8 +4,10 @@ from PyQt5.QtGui import QIntValidator, QDoubleValidator
 import uic2
 
 
-# Legendas
+# Ordem do banco de dados e as respectivas descrições
 # cdb -> Código de barras
+# nome -> Nome do produto / descrição do produto
+# valor -> Valor do produto (está em float)
 # q_t -> Quantidade total
 # q_u -> Quantidade de tamanhos único
 # q_p -> Quantidade de tamanhos P
@@ -20,6 +22,29 @@ import uic2
 # q_46 -> Quantidade de tamanhos 46
 # op -> Diferencia os tamanhos. Se receber 0 possui os tamanhos: u, p, m, g e gg
 # -> Se receber 1 possui os tamanhos: 36, 38, 40, 42, 44 e 46
+
+
+def filtrar_qt_tm(linha):
+    """
+    :param linha: Linha atual do item desejado
+    :return: A coluna quantidade e tamanhos da linha desejada
+    """
+    # Função para filtrar as quantidades e tamanhos da compra_tabela
+    item = QtWidgets.QTableWidgetItem.text(pro.compra_tabela.item(linha, 3))
+    dados = item[0]
+    return item
+
+
+def modificar():
+    # Função para modificar algum produto na tabela
+    linha = pro.compra_tabela.currentRow()
+    print(linha)
+
+
+def excluir_linha():
+    # Função para excluir a linha que foi selecionada
+    selecionado = pro.compra_tabela.currentRow()
+    pro.compra_tabela.removeRow(selecionado)
 
 
 def cancelar_selecionar():
@@ -62,15 +87,16 @@ def selecionar_tamanhos():
             # Se o programa achar algum valor diferente de 0 spinbox's do frame selecionar_tamanho,-
             # -ele joga em uma lista
             if c[1] != 0:
-                lista_tamanhos += f'{c[0]} {c[1]} '
+                lista_tamanhos += f'{c[1]} {c[0]} '
                 validador = True
                 contador_tamanhos += 1
 
         if validador:
+
             linhas = pro.compra_tabela.rowCount()
             pro.compra_tabela.setRowCount(linhas+1)
-            lista = [cdb, dados[0], dados[1] * contador_tamanhos, lista_tamanhos]
-            print(linhas)
+            lista = [cdb, dados[0], f'{dados[1] * contador_tamanhos:.2f}', lista_tamanhos]
+
             for coluna in range(0, 4):
                 pro.compra_tabela.setItem(linhas, coluna, QtWidgets.QTableWidgetItem(str(lista[coluna])))
 
@@ -109,12 +135,21 @@ def adicionar_produto():
 
                 pro.lztamanho6.hide()
                 pro.ztamanho6.hide()
+                pro.disponibilidade_6.hide()
+                pro.disponivel.hide()
 
+                # Mudança das labels
                 pro.lztamanho1.setText('Tamanho U')
                 pro.lztamanho2.setText('Tamanho P')
                 pro.lztamanho3.setText('Tamanho M')
                 pro.lztamanho4.setText('Tamanho G')
                 pro.lztamanho5.setText('Tamanho GG')
+                pro.disponibilidade_1.setText(str(dados[4]))
+                pro.disponibilidade_2.setText(str(dados[5]))
+                pro.disponibilidade_3.setText(str(dados[6]))
+                pro.disponibilidade_4.setText(str(dados[7]))
+                pro.disponibilidade_5.setText(str(dados[8]))
+
             else:
                 # Valores máximos do spinbox
                 pro.ztamanho1.setMaximum(dados[9])
@@ -124,14 +159,22 @@ def adicionar_produto():
                 pro.ztamanho5.setMaximum(dados[13])
                 pro.ztamanho6.setMaximum(dados[14])
 
+                pro.lztamanho6.show()
+                pro.ztamanho6.show()
+                pro.disponibilidade_6.show()
+                pro.disponivel.show()
+
                 pro.lztamanho1.setText('Tamanho 36')
                 pro.lztamanho2.setText('Tamanho 38')
                 pro.lztamanho3.setText('Tamanho 40')
                 pro.lztamanho4.setText('Tamanho 42')
                 pro.lztamanho5.setText('Tamanho 44')
-
-                pro.lztamanho6.show()
-                pro.ztamanho6.show()
+                pro.disponibilidade_1.setText(str(dados[9]))
+                pro.disponibilidade_2.setText(str(dados[10]))
+                pro.disponibilidade_3.setText(str(dados[11]))
+                pro.disponibilidade_4.setText(str(dados[12]))
+                pro.disponibilidade_5.setText(str(dados[13]))
+                pro.disponibilidade_6.setText(str(dados[14]))
 
             # Setta o valor 0 nos spinboxs para ficar mais bonito
             pro.ztamanho1.setValue(0)
@@ -607,6 +650,8 @@ pro.buscar.clicked.connect(filtrar)
 pro.adicionar_produto.clicked.connect(adicionar_produto)
 pro.selecionar_tamanhos.clicked.connect(selecionar_tamanhos)
 pro.cancelar_selecionar.clicked.connect(cancelar_selecionar)
+pro.excluir_linha.clicked.connect(excluir_linha)
+pro.modificar.clicked.connect(modificar)
 
 # Icones
 pro.pesquisar.setIcon(QtGui.QIcon('icons/dsds.png'))
