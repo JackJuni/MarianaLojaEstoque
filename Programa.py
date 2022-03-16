@@ -24,17 +24,6 @@ import uic2
 # -> Se receber 1 possui os tamanhos: 36, 38, 40, 42, 44 e 46
 
 
-def filtrar_qt_tm(linha):
-    """
-    :param linha: Linha atual do item desejado
-    :return: A coluna quantidade e tamanhos da linha desejada
-    """
-    # Função para filtrar as quantidades e tamanhos da compra_tabela
-    item = QtWidgets.QTableWidgetItem.text(pro.compra_tabela.item(linha, 3))
-    dados = item[0]
-    return item
-
-
 def modificar():
     # Função para modificar algum produto na tabela
     linha = pro.compra_tabela.currentRow()

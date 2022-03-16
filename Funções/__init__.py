@@ -31,7 +31,7 @@ def cadastrar(cdb, nome, valor, q_t, q_1, q_2, q_3, q_4, q_5, op, q_6=0):
 
 
 def remocaoeadicao(cdb, op, q_t, q_1, q_2, q_3, q_4, q_5, q_6, descricao, valor):
-    """ Função para remover peças de roupa
+    """ Função para remover peças de roupa na tabela PRODUTOS
     :param cdb: Código de barras
     :param q_t: Quantidade total
     :param op: Tipo de tamanho de roupa, 1 para tamanhos de bermudas
@@ -59,6 +59,29 @@ def remocaoeadicao(cdb, op, q_t, q_1, q_2, q_3, q_4, q_5, q_6, descricao, valor)
     else:
         c.execute("UPDATE produtos SET nome = ?, valor = ?, q_t = ?, q_u = ?, q_p = ?, q_m = ?, q_g = ?, q_gg = ?"
                   " WHERE cdb = ?", (descricao, valor, q_t, q_1, q_2, q_3, q_4, q_5, cdb))
+
+    con.commit()
+    con.close()
+
+
+def adicionarhistorico(cdb, nome, tam, sit, valor=0):
+    """ Função para adicionar à tabela HISTORICO as mudanças feita no estoque
+    :param cdb: Código de barras
+    :param nome: Nome da peça de roupa
+    :param tam: Os tamanhos retirados/adicionados
+    :param sit: A situação se foi: Novo cadastro, Adicionada e Comprada
+    :param valor: Valor total da roupa Retirado
+    """
+    from datetime import date
+    import time
+
+    # Data atual DD-MM-YY e hora HH:MM:SS para adicionar na tabela e não dar erro
+    data = date.today().strftime('%d/%m/%y') + time.strftime(' %H:%M:%S')
+
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    c.execute("INSERT INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cdb, nome, valor, tam, sit))
 
     con.commit()
     con.close()
@@ -246,6 +269,21 @@ def pegarvalor(cd, nome=0, valor=0, q_t=0, q_1=0, q_2=0, q_3=0, q_4=0, q_5=0, q_
         return dados
 
 
+def criatabelahistorico():
+    con = sqlite3.connect('dados.db')
+    c = con.cursor()
+
+    c.execute("""CREATE TABLE historico(data TEXT NOT NULL PRIMARY KEY,
+                                        cdb INTEGER NOT NULL,
+                                        nome TEXT NOT NULL,
+                                        v_t REAL,
+                                        tamanhos INTEGER NOT NULL,
+                                        sit TEXT NOT NULL)""")
+
+    con.commit()
+    c.close()
+
+
 def criatabelaprodutos():
     con = sqlite3.connect('dados.db')
     c = con.cursor()
@@ -271,27 +309,18 @@ def criatabelaprodutos():
     c.close()
 
 
-def adicionarhistorico(cdb, nome, tam, sit, valor=0):
-    """ Função para adicionar ao histórico as mudanças feita no estoque
-    :param cdb: Código de barras
-    :param nome: Nome da peça de roupa
-    :param tam: Os tamanhos retirados/adicionados
-    :param sit: A situação se foi: Novo cadastro, Adicionada e Comprada
-    :param valor: Valor total da roupa Retirado
-    """
-    from datetime import date
-    import time
-
-    # Data atual DD-MM-YY e hora HH:MM:SS para adicionar na tabela e não dar erro
-    data = date.today().strftime('%d/%m/%y') + time.strftime(' %H:%M:%S')
-
+def criartabelacompra():
     con = sqlite3.connect('dados.db')
     c = con.cursor()
 
-    c.execute("INSERT INTO historico VALUES (?, ?, ?, ?, ?, ?)", (data, cdb, nome, valor, tam, sit))
+    c.execute("""CREATE TABLE compras(cdb INTEGER NOT NULL PRIMARY KEY,
+                                     nome TEXT NOT NULL,
+                                     valor REAL NOT NULL,
+                                     quantidade INTEGER NOT NULL,
+                                     quantidades_simplificadas INTEGER NOT NULL)""")
 
     con.commit()
-    con.close()
+    c.close()
 
 
 def transformatam(ob, op=0):
