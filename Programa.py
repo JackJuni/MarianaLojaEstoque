@@ -57,6 +57,7 @@ def selecionar_tamanhos():
     else:
         cdb = int(pro.add_nome_produto.text())
         dados = Funções.pegarvalor(cdb, todos=1)
+        # dados2 = Funções.pegarvalor(cdb, todos=1)
 
         if dados[-1] == 0:
             tamanhos = {'Tamanhos U': int(pro.ztamanho1.text()), 'Tamanhos P': int(pro.ztamanho2.text()),
@@ -76,9 +77,13 @@ def selecionar_tamanhos():
             # Se o programa achar algum valor diferente de 0 spinbox's do frame selecionar_tamanho,-
             # -ele joga em uma lista
             if c[1] != 0:
-                lista_tamanhos += f'{c[1]} {c[0]} '
+                lista_tamanhos += f'{c[1]} {c[0]} ; '
                 validador = True
                 contador_tamanhos += 1
+
+        # Para tirar o ";" da última frase
+        if lista_tamanhos.endswith(';'):
+            lista_tamanhos = lista_tamanhos.replace(';', '')
 
         if validador:
 
