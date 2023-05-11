@@ -1,4 +1,4 @@
-# Sistema de controle de estoque. (Em construção)
+# Sistema de controle de estoque. (Em Desenvolvimento)
 ### Um controle de estoque para:
 
 - Cadastrar novas roupas, com código de barras
